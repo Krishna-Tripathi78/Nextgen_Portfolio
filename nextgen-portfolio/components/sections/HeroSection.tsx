@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { defineQuery } from "next-sanity";
-import { BackgroundRippleEffect } from "@/components/ui/background-ripple-effect";
+import { Spotlight } from "@/components/ui/spotlight-new";
 import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
 import { urlFor } from "@/sanity/lib/image";
 import { sanityFetch } from "@/sanity/lib/live";
 import { ProfileImage } from "./ProfileImage";
+
 
 const HERO_QUERY = defineQuery(`*[_id == "singleton-profile"][0]{
   firstName,
@@ -33,19 +34,19 @@ export async function HeroSection() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center px-6 py-20 overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center px-6 py-20 overflow-hidden bg-black/[0.96] dark:bg-black/[0.96] bg-white"
     >
-      {/* Background Ripple Effect */}
-      <BackgroundRippleEffect rows={8} cols={27} cellSize={56} />
+      {/* Spotlight Effect */}
+      <Spotlight />
 
       <div className="relative z-10 container mx-auto max-w-6xl">
         <div className="@container">
           <div className="grid grid-cols-1 @3xl:grid-cols-2 gap-8 @lg:gap-12 items-center">
             {/* Text Content */}
             <div className="@container/hero space-y-4 @md/hero:space-y-6">
-              <h1 className="text-4xl @md/hero:text-5xl @lg/hero:text-7xl font-bold tracking-tight">
+              <h1 className="text-4xl @md/hero:text-5xl @lg/hero:text-7xl font-bold tracking-tight text-white dark:text-white text-foreground">
                 {profile.firstName}{" "}
-                <span className="text-primary">{profile.lastName}</span>
+                <span className="text-blue-400 dark:text-blue-400 text-primary">{profile.lastName}</span>
               </h1>
               {profile.headlineStaticText &&
               profile.headlineAnimatedWords &&
@@ -54,14 +55,14 @@ export async function HeroSection() {
                   text={profile.headlineStaticText}
                   words={profile.headlineAnimatedWords}
                   duration={profile.headlineAnimationDuration || 3000}
-                  className="text-xl @md/hero:text-2xl @lg/hero:text-3xl text-muted-foreground font-medium"
+                  className="text-xl @md/hero:text-2xl @lg/hero:text-3xl text-neutral-300 dark:text-neutral-300 text-muted-foreground font-medium"
                 />
               ) : (
-                <p className="text-xl @md/hero:text-2xl @lg/hero:text-3xl text-muted-foreground font-medium">
+                <p className="text-xl @md/hero:text-2xl @lg/hero:text-3xl text-neutral-300 dark:text-neutral-300 text-muted-foreground font-medium">
                   {profile.headline}
                 </p>
               )}
-              <p className="text-base @md/hero:text-lg text-muted-foreground leading-relaxed">
+              <p className="text-base @md/hero:text-lg text-neutral-400 dark:text-neutral-400 text-muted-foreground leading-relaxed">
                 {profile.shortBio}
               </p>
 
@@ -72,7 +73,7 @@ export async function HeroSection() {
                       href={profile.socialLinks.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-4 py-2 @md/hero:px-6 @md/hero:py-3 rounded-lg border hover:bg-accent transition-colors text-sm @md/hero:text-base"
+                      className="px-4 py-2 @md/hero:px-6 @md/hero:py-3 rounded-lg border border-neutral-700 hover:bg-neutral-800 transition-colors text-sm @md/hero:text-base text-white"
                     >
                       GitHub
                     </Link>
@@ -82,7 +83,7 @@ export async function HeroSection() {
                       href={profile.socialLinks.linkedin}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-4 py-2 @md/hero:px-6 @md/hero:py-3 rounded-lg border hover:bg-accent transition-colors text-sm @md/hero:text-base"
+                      className="px-4 py-2 @md/hero:px-6 @md/hero:py-3 rounded-lg border border-neutral-700 hover:bg-neutral-800 transition-colors text-sm @md/hero:text-base text-white"
                     >
                       LinkedIn
                     </Link>
@@ -92,7 +93,7 @@ export async function HeroSection() {
                       href={profile.socialLinks.twitter}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-4 py-2 @md/hero:px-6 @md/hero:py-3 rounded-lg border hover:bg-accent transition-colors text-sm @md/hero:text-base"
+                      className="px-4 py-2 @md/hero:px-6 @md/hero:py-3 rounded-lg border border-neutral-700 hover:bg-neutral-800 transition-colors text-sm @md/hero:text-base text-white"
                     >
                       Twitter
                     </Link>
@@ -102,7 +103,7 @@ export async function HeroSection() {
                       href={profile.socialLinks.website}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-4 py-2 @md/hero:px-6 @md/hero:py-3 rounded-lg border hover:bg-accent transition-colors text-sm @md/hero:text-base"
+                      className="px-4 py-2 @md/hero:px-6 @md/hero:py-3 rounded-lg border border-neutral-700 hover:bg-neutral-800 transition-colors text-sm @md/hero:text-base text-white"
                     >
                       Website
                     </Link>
@@ -110,7 +111,7 @@ export async function HeroSection() {
                 </div>
               )}
 
-              <div className="flex flex-wrap gap-4 @md/hero:gap-6 pt-4 text-xs @md/hero:text-sm text-muted-foreground">
+              <div className="flex flex-wrap gap-4 @md/hero:gap-6 pt-4 text-xs @md/hero:text-sm text-neutral-400 dark:text-neutral-400 text-muted-foreground">
                 {profile.email && (
                   <div className="flex items-center gap-2">
                     <span>📧</span>
