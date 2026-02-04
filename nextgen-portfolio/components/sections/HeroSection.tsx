@@ -46,7 +46,7 @@ export async function HeroSection() {
             <div className="@container/hero space-y-4 @md/hero:space-y-6">
               <h1 className="text-4xl @md/hero:text-5xl @lg/hero:text-7xl font-bold tracking-tight animate-fade-in">
                 <span className="bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 dark:from-white dark:via-neutral-200 dark:to-white bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]">{profile.firstName}</span>{" "}
-                <span className="bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-600 dark:from-blue-400 dark:via-cyan-300 dark:to-teal-400 bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]">{profile.lastName}</span>
+                <span className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 dark:from-purple-400 dark:via-pink-400 dark:to-orange-400 bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]">{profile.lastName}</span>
               </h1>
               {profile.headlineStaticText &&
               profile.headlineAnimatedWords &&

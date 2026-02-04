@@ -4,6 +4,7 @@ import { defineQuery } from "next-sanity";
 import WorldMapDemo from "@/components/ui/world-map-demo";
 import { sanityFetch } from "@/sanity/lib/live";
 import { ContactForm } from "./ContactForm";
+import { Mail, Phone, MapPin, Github, Linkedin, Twitter, Globe } from "lucide-react";
 
 const PROFILE_QUERY = defineQuery(`*[_id == "singleton-profile"][0]{
   email,
@@ -43,7 +44,7 @@ export async function ContactSection() {
               {profile.email && (
                 <div className="flex items-start gap-3 @md/info:gap-4">
                   <div className="w-10 h-10 @md/info:w-12 @md/info:h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <span className="text-xl @md/info:text-2xl">📧</span>
+                    <Mail className="w-5 h-5 @md/info:w-6 @md/info:h-6 text-primary" />
                   </div>
                   <div className="min-w-0">
                     <h4 className="font-semibold mb-1 text-sm @md/info:text-base">
@@ -62,7 +63,7 @@ export async function ContactSection() {
               {profile.phone && (
                 <div className="flex items-start gap-3 @md/info:gap-4">
                   <div className="w-10 h-10 @md/info:w-12 @md/info:h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <span className="text-xl @md/info:text-2xl">📱</span>
+                    <Phone className="w-5 h-5 @md/info:w-6 @md/info:h-6 text-primary" />
                   </div>
                   <div className="min-w-0">
                     <h4 className="font-semibold mb-1 text-sm @md/info:text-base">
@@ -81,7 +82,7 @@ export async function ContactSection() {
               {profile.location && (
                 <div className="flex items-start gap-3 @md/info:gap-4">
                   <div className="w-10 h-10 @md/info:w-12 @md/info:h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <span className="text-xl @md/info:text-2xl">📍</span>
+                    <MapPin className="w-5 h-5 @md/info:w-6 @md/info:h-6 text-primary" />
                   </div>
                   <div className="min-w-0">
                     <h4 className="font-semibold mb-1 text-sm @md/info:text-base">
@@ -105,8 +106,9 @@ export async function ContactSection() {
                         href={profile.socialLinks.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-3 py-1.5 @md/info:px-4 @md/info:py-2 rounded-lg border hover:bg-accent transition-colors text-xs @md/info:text-sm"
+                        className="flex items-center gap-2 px-3 py-1.5 @md/info:px-4 @md/info:py-2 rounded-lg border hover:bg-accent transition-colors text-xs @md/info:text-sm"
                       >
+                        <Github className="w-4 h-4" />
                         GitHub
                       </Link>
                     )}
@@ -115,8 +117,9 @@ export async function ContactSection() {
                         href={profile.socialLinks.linkedin}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-3 py-1.5 @md/info:px-4 @md/info:py-2 rounded-lg border hover:bg-accent transition-colors text-xs @md/info:text-sm"
+                        className="flex items-center gap-2 px-3 py-1.5 @md/info:px-4 @md/info:py-2 rounded-lg border hover:bg-accent transition-colors text-xs @md/info:text-sm"
                       >
+                        <Linkedin className="w-4 h-4" />
                         LinkedIn
                       </Link>
                     )}
@@ -125,8 +128,9 @@ export async function ContactSection() {
                         href={profile.socialLinks.twitter}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-3 py-1.5 @md/info:px-4 @md/info:py-2 rounded-lg border hover:bg-accent transition-colors text-xs @md/info:text-sm"
+                        className="flex items-center gap-2 px-3 py-1.5 @md/info:px-4 @md/info:py-2 rounded-lg border hover:bg-accent transition-colors text-xs @md/info:text-sm"
                       >
+                        <Twitter className="w-4 h-4" />
                         Twitter
                       </Link>
                     )}
@@ -135,29 +139,10 @@ export async function ContactSection() {
                         href={profile.socialLinks.website}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-3 py-1.5 @md/info:px-4 @md/info:py-2 rounded-lg border hover:bg-accent transition-colors text-xs @md/info:text-sm"
+                        className="flex items-center gap-2 px-3 py-1.5 @md/info:px-4 @md/info:py-2 rounded-lg border hover:bg-accent transition-colors text-xs @md/info:text-sm"
                       >
+                        <Globe className="w-4 h-4" />
                         Website
-                      </Link>
-                    )}
-                    {profile.socialLinks.medium && (
-                      <Link
-                        href={profile.socialLinks.medium}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="px-3 py-1.5 @md/info:px-4 @md/info:py-2 rounded-lg border hover:bg-accent transition-colors text-xs @md/info:text-sm"
-                      >
-                        Medium
-                      </Link>
-                    )}
-                    {profile.socialLinks.devto && (
-                      <Link
-                        href={profile.socialLinks.devto}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="px-3 py-1.5 @md/info:px-4 @md/info:py-2 rounded-lg border hover:bg-accent transition-colors text-xs @md/info:text-sm"
-                      >
-                        Dev.to
                       </Link>
                     )}
                     {profile.socialLinks.youtube && (

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { defineQuery } from "next-sanity";
 import { urlFor } from "@/sanity/lib/image";
 import { sanityFetch } from "@/sanity/lib/live";
+import { TiltCard } from "@/components/ui/tilt-card";
 
 const ACHIEVEMENTS_QUERY =
   defineQuery(`*[_type == "achievement"] | order(date desc){
@@ -90,10 +91,8 @@ export async function AchievementsSection() {
             <div className="@container">
               <div className="grid grid-cols-1 @3xl:grid-cols-2 gap-6">
                 {featured.map((achievement) => (
-                  <div
-                    key={`${achievement.title}-${achievement.date}`}
-                    className="@container/card bg-card border-2 border-primary/20 rounded-lg p-6 hover:shadow-lg transition-all hover:scale-[1.02]"
-                  >
+                  <TiltCard key={`${achievement.title}-${achievement.date}`}>
+                    <div className="@container/card bg-card border-2 border-primary/20 rounded-lg p-6 hover:shadow-lg transition-all h-full">
                     {achievement.image && (
                       <div className="relative w-full h-32 @md/card:h-48 mb-4 rounded-lg overflow-hidden">
                         <Image
@@ -150,7 +149,8 @@ export async function AchievementsSection() {
                         <IconExternalLink className="w-3.5 h-3.5 @md/card:w-4 @md/card:h-4" />
                       </Link>
                     )}
-                  </div>
+                    </div>
+                  </TiltCard>
                 ))}
               </div>
             </div>
@@ -168,10 +168,10 @@ export async function AchievementsSection() {
                 {regular.map((achievement) => (
                   <div
                     key={`${achievement.title}-${achievement.date}`}
-                    className="@container/card bg-card border rounded-lg p-6 hover:shadow-lg transition-all hover:scale-105 flex flex-col"
+                    className="@container/card bg-card border rounded-lg p-6 hover:shadow-lg transition-all hover:scale-105 flex flex-col h-full"
                   >
                     {achievement.image && (
-                      <div className="relative w-full h-24 @md/card:h-32 mb-4 rounded-lg overflow-hidden">
+                      <div className="relative w-full h-24 @md/card:h-32 mb-4 rounded-lg overflow-hidden flex-shrink-0">
                         <Image
                           src={urlFor(achievement.image)
                             .width(300)

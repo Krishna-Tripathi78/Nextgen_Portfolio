@@ -11,6 +11,13 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import '../globals.css'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import { ThemeToggle } from '@/components/ThemeToggle'
+import { MagneticCursor } from '@/components/ui/magnetic-cursor'
+import { ParticleField } from '@/components/ui/particle-field'
+import { ScrollProgress } from '@/components/ui/scroll-progress'
+import { CommandPalette } from '@/components/ui/command-palette'
+import { BackToTop } from '@/components/ui/back-to-top'
+import { SpotlightCursor } from '@/components/ui/spotlight-cursor'
+import { FloatingDock } from '@/components/ui/floating-dock'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -37,7 +44,14 @@ export default function RootLayout({
       <html lang="en">
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
           <ThemeProvider>
+            <ScrollProgress />
+            <MagneticCursor />
+            <SpotlightCursor />
+            <ParticleField />
+            <CommandPalette />
             <ThemeToggle />
+            <FloatingDock />
+            <BackToTop />
             <header className="flex justify-end items-center p-4 gap-4 h-16">
               <SignedOut>
                 <SignInButton />
