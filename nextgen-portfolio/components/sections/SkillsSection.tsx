@@ -1,19 +1,38 @@
-export default function SkillsSection() {
+import { defineQuery } from "next-sanity";
+import { sanityFetch } from "@/sanity/lib/live";
+import { SkillsChart } from "./SkillsChart";
+
+const SKILLS_QUERY =
+  defineQuery(`*[_type == "skill"] | order(category asc, order asc){
+  name,
+  category,
+  proficiency,
+  percentage,
+  yearsOfExperience,
+  color
+}`);
+
+export async function SkillsSection() {
+  const { data: skills } = await sanityFetch({ query: SKILLS_QUERY });
+
+  if (!skills || skills.length === 0) {
+    return null;
+  }
+
   return (
-    <section id="skills" className="relative py-20 bg-gray-50 dark:bg-neutral-950 overflow-hidden">
-      {/* Animated Mesh Gradient */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-0 w-full h-96 bg-gradient-to-r from-blue-500/20 via-cyan-500/10 to-transparent blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-0 w-full h-96 bg-gradient-to-l from-teal-500/20 via-blue-500/10 to-transparent blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }} />
-      </div>
-      
-      <div className="relative z-10 container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-8 text-gray-900 dark:text-white">Skills</h2>
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-lg text-gray-600 dark:text-neutral-300">
-            Skills section content will be loaded from Sanity CMS.
+    <section id="skills" className="py-20 px-6 bg-muted/30">
+      <div className="container mx-auto max-w-7xl">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            Skills & Expertise
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            A comprehensive overview of my technical proficiencies and tools I
+            work with daily
           </p>
         </div>
+
+        <SkillsChart skills={skills} />
       </div>
     </section>
   );

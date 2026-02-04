@@ -1,12 +1,11 @@
 import Link from "next/link";
 import { defineQuery } from "next-sanity";
-import { Spotlight } from "@/components/ui/spotlight-new";
+import { BackgroundRippleEffect } from "@/components/ui/background-ripple-effect";
 import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
 import { urlFor } from "@/sanity/lib/image";
 import { sanityFetch } from "@/sanity/lib/live";
 import { ProfileImage } from "@/components/ui/profile-image";
-import { Github, Linkedin, Twitter, Globe } from "lucide-react";
-
+import { Github, Linkedin, Twitter, Globe, Mail, MapPin, CheckCircle } from "lucide-react";
 
 const HERO_QUERY = defineQuery(`*[_id == "singleton-profile"][0]{
   firstName,
@@ -37,17 +36,8 @@ export async function HeroSection() {
       id="home"
       className="relative min-h-screen flex items-center justify-center px-6 py-20 overflow-hidden bg-white dark:bg-black/[0.96]"
     >
-      {/* Animated Mesh Gradient Background */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-to-br from-blue-500/20 via-cyan-500/10 to-transparent dark:from-blue-500/30 dark:via-cyan-500/20 rounded-full blur-3xl animate-[spin_20s_linear_infinite]" />
-        <div className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-gradient-to-tl from-teal-500/20 via-blue-500/10 to-transparent dark:from-teal-500/30 dark:via-blue-500/20 rounded-full blur-3xl animate-[spin_25s_linear_infinite_reverse]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-cyan-500/10 dark:from-purple-500/20 dark:via-pink-500/20 dark:to-cyan-500/20 rounded-full blur-3xl animate-pulse" />
-      </div>
-      
-      {/* Spotlight Effect */}
-      <div className="hidden dark:block">
-        <Spotlight />
-      </div>
+      {/* Background Ripple Effect */}
+      <BackgroundRippleEffect rows={8} cols={27} cellSize={56} />
 
       <div className="relative z-10 container mx-auto max-w-6xl">
         <div className="@container">
@@ -128,19 +118,19 @@ export async function HeroSection() {
               <div className="flex flex-nowrap gap-x-6 pt-4 text-sm animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
                 {profile.email && (
                   <div className="flex items-center gap-2 text-cyan-600 dark:text-cyan-400 hover:scale-110 transition-transform">
-                    <span className="text-lg">📧</span>
+                    <Mail className="w-4 h-4" />
                     <span className="whitespace-nowrap">{profile.email}</span>
                   </div>
                 )}
                 {profile.location && (
                   <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:scale-110 transition-transform">
-                    <span className="text-lg">📍</span>
+                    <MapPin className="w-4 h-4" />
                     <span className="whitespace-nowrap">{profile.location}</span>
                   </div>
                 )}
                 {profile.availability && (
                   <div className="flex items-center gap-2 text-teal-600 dark:text-teal-400 hover:scale-110 transition-transform">
-                    <span className="text-lg">✅</span>
+                    <CheckCircle className="w-4 h-4" />
                     <span className="whitespace-nowrap">{profile.availability}</span>
                   </div>
                 )}
@@ -149,14 +139,18 @@ export async function HeroSection() {
 
             {/* Profile Image */}
             {profile.profileImage && (
-              <ProfileImage
-                imageUrl={urlFor(profile.profileImage)
-                  .width(600)
-                  .height(600)
-                  .url()}
-                firstName={profile.firstName || ""}
-                lastName={profile.lastName || ""}
-              />
+              <div className="flex justify-center translate-x-[2cm]">
+                <div className="w-[120%]">
+                  <ProfileImage
+                    imageUrl={urlFor(profile.profileImage)
+                      .width(600)
+                      .height(600)
+                      .url()}
+                    firstName={profile.firstName || ""}
+                    lastName={profile.lastName || ""}
+                  />
+                </div>
+              </div>
             )}
           </div>
         </div>
