@@ -35,6 +35,8 @@ export function ProfileImage ({
         className="object-cover transition-transform duration-300 group-hover:scale-105"
         priority
       />
+      {/* Online Status Indicator */}
+      <div className="absolute bottom-2 right-2 w-4 h-4 bg-green-500 rounded-full border-2 border-background shadow-lg animate-pulse" />
     </button>
   );
 }

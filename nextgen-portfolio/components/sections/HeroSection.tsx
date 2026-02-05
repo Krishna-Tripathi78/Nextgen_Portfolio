@@ -6,6 +6,7 @@ import { urlFor } from "@/sanity/lib/image";
 import { sanityFetch } from "@/sanity/lib/live";
 import { ProfileImage } from "@/components/ui/profile-image";
 import { Github, Linkedin, Twitter, Globe, Mail, MapPin, CheckCircle } from "lucide-react";
+import { AITwinButton } from "@/components/ui/AITwinButton";
 
 const HERO_QUERY = defineQuery(`*[_id == "singleton-profile"][0]{
   firstName,

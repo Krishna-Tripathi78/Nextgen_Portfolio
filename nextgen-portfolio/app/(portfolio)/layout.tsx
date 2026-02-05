@@ -11,6 +11,7 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import '../globals.css'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import { ThemeToggle } from '@/components/ThemeToggle'
+import { AITwinButton } from '@/components/ui/AITwinButton'
 import { MagneticCursor } from '@/components/ui/magnetic-cursor'
 import { ParticleField } from '@/components/ui/particle-field'
 import { ScrollProgress } from '@/components/ui/scroll-progress'
@@ -18,6 +19,7 @@ import { CommandPalette } from '@/components/ui/command-palette'
 import { BackToTop } from '@/components/ui/back-to-top'
 import { SpotlightCursor } from '@/components/ui/spotlight-cursor'
 import { FloatingDock } from '@/components/ui/floating-dock'
+import { LoadingWrapper } from '@/components/ui/loading-wrapper'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -44,28 +46,31 @@ export default function RootLayout({
       <html lang="en">
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
           <ThemeProvider>
-            <ScrollProgress />
-            <MagneticCursor />
-            <SpotlightCursor />
-            <ParticleField />
-            <CommandPalette />
-            <ThemeToggle />
-            <FloatingDock />
-            <BackToTop />
-            <header className="flex justify-end items-center p-4 gap-4 h-16">
-              <SignedOut>
-                <SignInButton />
-                <SignUpButton>
-                  <button className="bg-[#6c47ff] text-white rounded-full font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 cursor-pointer">
-                    Sign Up
-                  </button>
-                </SignUpButton>
-              </SignedOut>
-              <SignedIn>
-                <UserButton />
-              </SignedIn>
-            </header>
-            {children}
+            <LoadingWrapper>
+              <ScrollProgress />
+              <MagneticCursor />
+              <SpotlightCursor />
+              <ParticleField />
+              <CommandPalette />
+              <ThemeToggle />
+              <AITwinButton />
+              <FloatingDock />
+              <BackToTop />
+              <header className="flex justify-end items-center p-4 gap-4 h-16">
+                <SignedOut>
+                  <SignInButton />
+                  <SignUpButton>
+                    <button className="bg-[#6c47ff] text-white rounded-full font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 cursor-pointer">
+                      Sign Up
+                    </button>
+                  </SignUpButton>
+                </SignedOut>
+                <SignedIn>
+                  <UserButton />
+                </SignedIn>
+              </header>
+              {children}
+            </LoadingWrapper>
           </ThemeProvider>
         </body>
       </html>
