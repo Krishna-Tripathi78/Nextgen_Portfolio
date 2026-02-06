@@ -96,7 +96,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
       ))}
 
       {/* Main content */}
-      <div className="relative z-10 flex flex-col items-center gap-12 px-4">
+      <div className="relative z-10 flex flex-col items-center gap-8 lg:gap-12 px-4 scale-[0.67] origin-center">
         {/* Top section - Welcome */}
         <div className="text-center space-y-3">
           <div className="relative inline-block">

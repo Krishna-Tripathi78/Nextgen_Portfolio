@@ -4,7 +4,7 @@ import PortfolioContent from "@/components/PortfolioContent";
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen" style={{ zoom: 0.67 }}>
       <PortfolioContent></PortfolioContent>
       
     </div>
