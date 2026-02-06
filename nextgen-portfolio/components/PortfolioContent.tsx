@@ -9,6 +9,7 @@ import {
   ProjectsSection,
   SkillsSection,
 } from "@/components/sections";
+import { RatingWrapper } from "@/components/RatingWrapper";
 
 async function PortfolioContent() {
   return (
@@ -22,6 +23,7 @@ async function PortfolioContent() {
       <CertificationsSection />
       <AchievementsSection />
       <ContactSection />
+      <RatingWrapper />
     </>
   );
 }

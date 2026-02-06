@@ -25,17 +25,17 @@ export async function ProjectsSection() {
   }
 
   return (
-    <section id="projects" className="py-20 px-6 bg-muted/30">
+    <section id="projects" className="py-16 sm:py-20 px-4 sm:px-6 bg-muted/30">
       <div className="container mx-auto max-w-6xl">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
             Featured Projects
           </h2>
-          <p className="text-xl text-muted-foreground">Some of my best work</p>
+          <p className="text-lg sm:text-xl text-muted-foreground">Some of my best work</p>
         </div>
 
         <div className="@container">
-          <div className="grid grid-cols-1 @2xl:grid-cols-2 @5xl:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
             {projects.map((project: any, idx: number) => (
               <ScrollReveal key={project.slug?.current} className="transition-all">
                 <div
@@ -59,26 +59,26 @@ export async function ProjectsSection() {
                   )}
 
                   {/* Project Content */}
-                  <div className="p-4 @md/card:p-6 space-y-3 @md/card:space-y-4">
+                  <div className="p-4 sm:p-6 space-y-3 sm:space-y-4">
                     <div>
                       <div className="flex items-center gap-2 mb-2">
                         {project.category && (
-                          <span className="text-xs px-2 py-0.5 @md/card:py-1 rounded-full bg-primary/10 text-primary">
+                          <span className="text-xs px-2 py-1 rounded-full bg-primary/10 text-primary">
                             {project.category}
                           </span>
                         )}
                       </div>
-                      <h3 className="text-lg @md/card:text-xl font-semibold mb-2 line-clamp-2">
+                      <h3 className="text-lg sm:text-xl font-semibold mb-2 line-clamp-2">
                         {project.title || "Untitled Project"}
                       </h3>
-                      <p className="text-muted-foreground text-xs @md/card:text-sm line-clamp-2">
+                      <p className="text-muted-foreground text-sm line-clamp-2">
                         {project.tagline}
                       </p>
                     </div>
 
                     {/* Tech Stack */}
                     {project.technologies && project.technologies.length > 0 && (
-                      <div className="flex flex-wrap gap-1.5 @md/card:gap-2">
+                      <div className="flex flex-wrap gap-1.5 sm:gap-2">
                         {project.technologies.slice(0, 4).map((tech: any, idx: number) => {
                           const techData =
                             tech && typeof tech === "object" && "name" in tech
@@ -87,14 +87,14 @@ export async function ProjectsSection() {
                           return techData?.name ? (
                             <span
                               key={`${project.slug?.current}-tech-${idx}`}
-                              className="text-xs px-2 py-0.5 @md/card:py-1 rounded-md bg-muted"
+                              className="text-xs px-2 py-1 rounded-md bg-muted"
                             >
                               {techData.name}
                             </span>
                           ) : null;
                         })}
                         {project.technologies.length > 4 && (
-                          <span className="text-xs px-2 py-0.5 @md/card:py-1 rounded-md bg-muted">
+                          <span className="text-xs px-2 py-1 rounded-md bg-muted">
                             +{project.technologies.length - 4}
                           </span>
                         )}
@@ -102,13 +102,13 @@ export async function ProjectsSection() {
                     )}
 
                     {/* Actions */}
-                    <div className="flex flex-col @xs/card:flex-row gap-2 @xs/card:gap-3 pt-2">
+                    <div className="flex flex-col xs:flex-row gap-2 xs:gap-3 pt-2">
                       {project.liveUrl && (
                         <Link
                           href={project.liveUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex-1 text-center px-3 py-2 @md/card:px-4 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-xs @md/card:text-sm"
+                          className="flex-1 text-center px-3 py-2 sm:px-4 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-sm"
                         >
                           Live Demo
                         </Link>
@@ -118,7 +118,7 @@ export async function ProjectsSection() {
                           href={project.githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="px-3 py-2 @md/card:px-4 rounded-lg border hover:bg-accent transition-colors text-xs @md/card:text-sm text-center"
+                          className="px-3 py-2 sm:px-4 rounded-lg border hover:bg-accent transition-colors text-sm text-center"
                         >
                           GitHub
                         </Link>
