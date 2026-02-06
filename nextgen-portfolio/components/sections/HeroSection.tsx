@@ -35,17 +35,17 @@ export async function HeroSection() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 py-16 sm:py-20 overflow-hidden bg-white dark:bg-black/[0.96]"
+      className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 py-8 sm:py-16 md:py-20 overflow-hidden bg-white dark:bg-black/[0.96]"
     >
       {/* Background Ripple Effect */}
       <BackgroundRippleEffect rows={8} cols={27} cellSize={56} />
 
       <div className="relative z-10 container mx-auto max-w-6xl">
         <div className="@container">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
             {/* Text Content */}
-            <div className="@container/hero space-y-4 md:space-y-6 text-center lg:text-left">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight animate-fade-in">
+            <div className="@container/hero space-y-3 sm:space-y-4 md:space-y-6 text-center lg:text-left order-2 lg:order-1">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight animate-fade-in leading-tight">
                 <span className="bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 dark:from-white dark:via-neutral-200 dark:to-white bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]">{profile.firstName}</span>{" "}
                 <span className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 dark:from-purple-400 dark:via-pink-400 dark:to-orange-400 bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]">{profile.lastName}</span>
               </h1>
@@ -68,7 +68,7 @@ export async function HeroSection() {
               </p>
 
               {profile.socialLinks && (
-                <div className="flex flex-wrap justify-center lg:justify-start gap-2 sm:gap-3 md:gap-4 pt-4">
+                <div className="flex flex-wrap justify-center lg:justify-start gap-2 sm:gap-3 md:gap-4 pt-2 sm:pt-4">
                   {profile.socialLinks.github && (
                     <Link
                       href={profile.socialLinks.github}
@@ -116,7 +116,7 @@ export async function HeroSection() {
                 </div>
               )}
 
-              <div className="flex flex-col sm:flex-row sm:flex-wrap justify-center lg:justify-start gap-3 sm:gap-x-6 pt-4 text-xs sm:text-sm animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+              <div className="flex flex-col sm:flex-row sm:flex-wrap justify-center lg:justify-start gap-2 sm:gap-3 sm:gap-x-6 pt-2 sm:pt-4 text-xs sm:text-sm animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
                 {profile.email && (
                   <div className="flex items-center gap-2 text-cyan-600 dark:text-cyan-400 hover:scale-110 transition-transform">
                     <Mail className="w-3 h-3 sm:w-4 sm:h-4" />
@@ -140,8 +140,8 @@ export async function HeroSection() {
 
             {/* Profile Image */}
             {profile.profileImage && (
-              <div className="flex justify-center lg:justify-end order-first lg:order-last">
-                <div className="w-64 sm:w-80 md:w-96 lg:w-full max-w-lg">
+              <div className="flex justify-center lg:justify-end order-1 lg:order-2">
+                <div className="w-48 sm:w-64 md:w-80 lg:w-full max-w-lg">
                   <ProfileImage
                     imageUrl={urlFor(profile.profileImage)
                       .width(600)
