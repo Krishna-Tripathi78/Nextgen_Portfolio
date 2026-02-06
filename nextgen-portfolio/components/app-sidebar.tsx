@@ -13,7 +13,7 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
   SidebarRail,
-} from "@/components/ui/Sidebar"
+} from "@/components/ui/sidebar"
 
 // This is sample data.
 const data = {

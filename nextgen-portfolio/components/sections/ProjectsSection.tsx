@@ -36,9 +36,10 @@ export async function ProjectsSection() {
 
         <div className="@container">
           <div className="grid grid-cols-1 @2xl:grid-cols-2 @5xl:grid-cols-3 gap-8">
-            {projects.map((project, idx) => (
-              <ScrollReveal key={project.slug?.current} className="transition-all" style={{ transitionDelay: `${idx * 100}ms` }}>
+            {projects.map((project: any, idx: number) => (
+              <ScrollReveal key={project.slug?.current} className="transition-all">
                 <div
+                  style={{ transitionDelay: `${idx * 100}ms` }}
                   className="@container/card group bg-card border rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300">
                   {/* Project Image */}
                   {project.coverImage && (
@@ -78,7 +79,7 @@ export async function ProjectsSection() {
                     {/* Tech Stack */}
                     {project.technologies && project.technologies.length > 0 && (
                       <div className="flex flex-wrap gap-1.5 @md/card:gap-2">
-                        {project.technologies.slice(0, 4).map((tech, idx) => {
+                        {project.technologies.slice(0, 4).map((tech: any, idx: number) => {
                           const techData =
                             tech && typeof tech === "object" && "name" in tech
                               ? tech

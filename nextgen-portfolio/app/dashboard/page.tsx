@@ -11,7 +11,7 @@ import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "@/components/ui/Sidebar"
+} from "@/components/ui/sidebar"
 
 export default function Page() {
   return (

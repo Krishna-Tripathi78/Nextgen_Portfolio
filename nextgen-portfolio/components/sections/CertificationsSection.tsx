@@ -59,7 +59,7 @@ export async function CertificationsSection() {
 
         <div className="@container">
           <div className="grid grid-cols-1 @2xl:grid-cols-2 gap-10">
-            {certifications.map((cert) => (
+            {certifications.map((cert: any) => (
               <CometCard
                 key={`${cert.issuer}-${cert.name}-${cert.issueDate}`}
                 rotateDepth={8}
@@ -165,7 +165,7 @@ export async function CertificationsSection() {
                         {cert.skills && cert.skills.length > 0 && (
                           <div className="mb-4">
                             <div className="flex flex-wrap justify-center gap-1.5">
-                              {cert.skills.slice(0, 4).map((skill, idx) => {
+                              {cert.skills.slice(0, 4).map((skill: any, idx: number) => {
                                 const skillData =
                                   skill &&
                                   typeof skill === "object" &&
