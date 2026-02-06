@@ -1,12 +1,14 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
+import { Zap, Target, Rocket, Sparkles } from "lucide-react";
 
 export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
   const [opacity, setOpacity] = useState(1);
   const [progress, setProgress] = useState(0);
   const [stage, setStage] = useState(0);
   const [mounted, setMounted] = useState(false);
+  const [activeBadge, setActiveBadge] = useState(-1);
 
   const particles = useMemo(() => 
     Array.from({ length: 30 }, (_, i) => ({
@@ -27,8 +29,9 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
     const progressInterval = setInterval(() => {
       setProgress(prev => {
         const next = prev + 2;
-        if (next >= 33 && stage === 0) setStage(1);
-        if (next >= 66 && stage === 1) setStage(2);
+        if (next >= 25 && stage === 0) setStage(1);
+        if (next >= 50 && stage === 1) setStage(2);
+        if (next >= 75 && stage === 2) setStage(3);
         if (next >= 100) {
           clearInterval(progressInterval);
           return 100;
@@ -37,14 +40,23 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
       });
     }, 30);
 
+    // Badge lighting sequence
+    const badgeTimers = [
+      setTimeout(() => setActiveBadge(0), 800),  // Lightning Fast
+      setTimeout(() => setActiveBadge(1), 1600), // Pixel Perfect
+      setTimeout(() => setActiveBadge(2), 2400), // Cutting Edge
+      setTimeout(() => setActiveBadge(3), 3200), // Innovative
+    ];
+
     const timer = setTimeout(() => {
       setOpacity(0);
       setTimeout(onComplete, 500);
-    }, 3500);
+    }, 4000);
 
     return () => {
       clearInterval(progressInterval);
       clearTimeout(timer);
+      badgeTimers.forEach(clearTimeout);
     };
   }, [onComplete, stage]);
 
@@ -150,14 +162,14 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
               </div>
             </div>
             <div className="flex justify-between mt-3 text-xs">
-              <span className="text-gray-600 dark:text-slate-400 font-semibold">{['Preparing Experience', 'Loading Content', 'Finalizing'][stage]}</span>
+              <span className="text-gray-600 dark:text-slate-400 font-semibold">{['Initializing', 'Loading Assets', 'Preparing UI', 'Ready'][stage]}</span>
               <span className="text-gray-500 dark:text-slate-500 font-mono tabular-nums">{progress}%</span>
             </div>
           </div>
 
           {/* Status indicators */}
           <div className="flex justify-center gap-8">
-            {['Initialize', 'Load', 'Complete'].map((label, i) => (
+            {['Initialize', 'Load', 'Prepare', 'Complete'].map((label, i) => (
               <div key={i} className="flex flex-col items-center gap-2">
                 <div className={`w-3 h-3 rounded-full transition-all duration-500 ${
                   stage > i ? 'bg-green-500 shadow-md shadow-green-500/30' : 
@@ -172,21 +184,43 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
           </div>
         </div>
 
-        {/* Bottom badges */}
+        {/* Bottom badges with sequential lighting */}
         <div className="flex items-center gap-6">
           {[
-            { icon: '⚡', label: 'LIGHTNING FAST', color: 'from-cyan-500 to-blue-500' },
-            { icon: '🎯', label: 'PIXEL PERFECT', color: 'from-purple-500 to-pink-500' },
-            { icon: '🚀', label: 'CUTTING EDGE', color: 'from-pink-500 to-orange-500' },
-            { icon: '✨', label: 'INNOVATIVE', color: 'from-teal-500 to-green-500' }
-          ].map((badge, i) => (
-            <div key={i} className="flex flex-col items-center gap-2 opacity-60 hover:opacity-100 transition-opacity">
-              <div className={`w-12 h-12 rounded-full bg-gradient-to-br ${badge.color} flex items-center justify-center shadow-lg`}>
-                <span className="text-xl">{badge.icon}</span>
+            { icon: Zap, label: 'LIGHTNING FAST', color: 'from-cyan-500 to-blue-500' },
+            { icon: Target, label: 'PIXEL PERFECT', color: 'from-purple-500 to-pink-500' },
+            { icon: Rocket, label: 'CUTTING EDGE', color: 'from-pink-500 to-orange-500' },
+            { icon: Sparkles, label: 'INNOVATIVE', color: 'from-teal-500 to-green-500' }
+          ].map((badge, i) => {
+            const isActive = activeBadge >= i;
+            const isCurrent = activeBadge === i;
+            const IconComponent = badge.icon;
+            
+            return (
+              <div key={i} className={`flex flex-col items-center gap-2 transition-all duration-500 ${
+                isActive ? 'opacity-100 scale-110' : 'opacity-40 scale-100'
+              }`}>
+                <div className={`relative w-12 h-12 rounded-full bg-gradient-to-br ${badge.color} flex items-center justify-center shadow-lg transition-all duration-500 ${
+                  isCurrent ? 'animate-pulse shadow-2xl' : isActive ? 'shadow-xl' : 'shadow-md'
+                }`}>
+                  {/* Glow effect for active badge */}
+                  {isCurrent && (
+                    <div className={`absolute inset-0 rounded-full bg-gradient-to-br ${badge.color} opacity-50 animate-ping`} />
+                  )}
+                  {/* Shimmer effect for active badges */}
+                  {isActive && (
+                    <div className="absolute inset-0 rounded-full overflow-hidden">
+                      <div className="absolute inset-0 bg-white/30 animate-shimmer" style={{ transform: 'translateX(-100%) rotate(45deg)' }} />
+                    </div>
+                  )}
+                  <IconComponent className="relative w-6 h-6 text-white z-10" />
+                </div>
+                <span className={`text-[9px] font-bold tracking-wider transition-all duration-500 ${
+                  isActive ? 'text-gray-700 dark:text-slate-300' : 'text-gray-400 dark:text-slate-600'
+                }`}>{badge.label}</span>
               </div>
-              <span className="text-[9px] font-bold text-gray-500 dark:text-slate-500 tracking-wider">{badge.label}</span>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
