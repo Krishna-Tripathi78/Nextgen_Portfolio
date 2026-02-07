@@ -12,6 +12,10 @@ export function MagneticCursor() {
     const cursorDot = cursorDotRef.current;
     if (!cursor || !cursorDot) return;
 
+    // Check if device has touch support (mobile)
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if (isTouchDevice) return;
+
     let mouseX = 0, mouseY = 0;
     let cursorX = 0, cursorY = 0;
     let dotX = 0, dotY = 0;
