@@ -1,39 +1,45 @@
-"use client";
-import { useEffect, useRef, useState } from "react";
+'use client'
 
-export function useScrollReveal() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+import { useEffect, useRef, useState } from 'react'
+
+interface ScrollRevealProps {
+  children: React.ReactNode
+  delay?: number
+}
+
+export function ScrollReveal({ children, delay = 0 }: ScrollRevealProps) {
+  const [isVisible, setIsVisible] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
+          setIsVisible(true)
+          observer.unobserve(entry.target)
         }
       },
-      { threshold: 0.1 }
-    );
+      { threshold: 0.2, rootMargin: '-100px 0px' }
+    )
 
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
+    if (ref.current) {
+      observer.observe(ref.current)
+    }
 
-  return { ref, isVisible };
-}
+    return () => observer.disconnect()
+  }, [])
 
-export function ScrollReveal({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  const { ref, isVisible } = useScrollReveal();
-  
   return (
     <div
       ref={ref}
-      className={`transition-all duration-1000 ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-      } ${className}`}
+      style={{
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? 'translateY(0)' : 'translateY(50px)',
+        transition: 'opacity 1s ease-out, transform 1s ease-out',
+        transitionDelay: `${delay}ms`,
+      }}
     >
       {children}
     </div>
-  );
+  )
 }

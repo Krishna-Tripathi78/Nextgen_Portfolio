@@ -35,7 +35,7 @@ export async function HeroSection() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center px-6 py-12 overflow-hidden bg-white dark:bg-black/[0.96]"
+      className="relative h-screen flex items-center justify-center px-6 py-12 overflow-hidden bg-white dark:bg-black/[0.96]"
     >
       {/* Background Ripple Effect */}
       <BackgroundRippleEffect rows={8} cols={27} cellSize={56} />

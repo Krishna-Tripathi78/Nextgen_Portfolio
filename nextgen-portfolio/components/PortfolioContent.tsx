@@ -10,19 +10,36 @@ import {
   SkillsSection,
 } from "@/components/sections";
 import { RatingWrapper } from "@/components/RatingWrapper";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
 async function PortfolioContent() {
   return (
     <>
       <HeroSection />
-      <AboutSection />
-      <SkillsSection />
-      <ExperienceSection />
-      <EducationSection />
-      <ProjectsSection />
-      <CertificationsSection />
-      <AchievementsSection />
-      <ContactSection />
+      <ScrollReveal>
+        <AboutSection />
+      </ScrollReveal>
+      <ScrollReveal>
+        <SkillsSection />
+      </ScrollReveal>
+      <ScrollReveal>
+        <ExperienceSection />
+      </ScrollReveal>
+      <ScrollReveal>
+        <EducationSection />
+      </ScrollReveal>
+      <ScrollReveal>
+        <ProjectsSection />
+      </ScrollReveal>
+      <ScrollReveal>
+        <CertificationsSection />
+      </ScrollReveal>
+      <ScrollReveal>
+        <AchievementsSection />
+      </ScrollReveal>
+      <ScrollReveal>
+        <ContactSection />
+      </ScrollReveal>
       <RatingWrapper />
     </>
   );
