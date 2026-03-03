@@ -1,7 +1,7 @@
 "use client";
-import { useState } from "react";
-import { Home, Briefcase, Award, Mail, Menu, X } from "lucide-react";
+import { Award, Briefcase, Home, Mail, Menu, X } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 
 export function FloatingMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,7 +15,9 @@ export function FloatingMenu() {
 
   return (
     <div className="fixed bottom-24 right-8 z-40">
-      <div className={`flex flex-col-reverse gap-3 mb-3 transition-all duration-300 ${isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}`}>
+      <div
+        className={`flex flex-col-reverse gap-3 mb-3 transition-all duration-300 ${isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"}`}
+      >
         {menuItems.map((item, i) => (
           <Link
             key={item.label}
@@ -31,7 +33,7 @@ export function FloatingMenu() {
           </Link>
         ))}
       </div>
-      
+
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-14 h-14 bg-gradient-to-br from-purple-600 to-pink-600 text-white rounded-full shadow-lg hover:shadow-2xl hover:scale-110 transition-all duration-300 flex items-center justify-center"

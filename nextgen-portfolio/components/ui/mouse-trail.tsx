@@ -1,20 +1,22 @@
-'use client'
+"use client";
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
 
 export function MouseTrail() {
-  const [trails, setTrails] = useState<{ x: number; y: number; id: number }[]>([])
+  const [trails, setTrails] = useState<{ x: number; y: number; id: number }[]>(
+    [],
+  );
 
   useEffect(() => {
-    let id = 0
+    let id = 0;
     const handleMouseMove = (e: MouseEvent) => {
-      const newTrail = { x: e.clientX, y: e.clientY, id: id++ }
-      setTrails(prev => [...prev.slice(-8), newTrail])
-    }
+      const newTrail = { x: e.clientX, y: e.clientY, id: id++ };
+      setTrails((prev) => [...prev.slice(-8), newTrail]);
+    };
 
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [])
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
   return (
     <div className="fixed inset-0 pointer-events-none z-50">
@@ -25,12 +27,12 @@ export function MouseTrail() {
           style={{
             left: trail.x,
             top: trail.y,
-            opacity: (index + 1) / trails.length * 0.5,
+            opacity: ((index + 1) / trails.length) * 0.5,
             transform: `scale(${(index + 1) / trails.length})`,
-            transition: 'all 0.3s ease-out',
+            transition: "all 0.3s ease-out",
           }}
         />
       ))}
     </div>
-  )
+  );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export function usePortfolioCompletion() {
   const [isCompleted, setIsCompleted] = useState(false);
@@ -8,16 +8,17 @@ export function usePortfolioCompletion() {
 
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
-    
+
     const handleScroll = () => {
       const scrollTop = window.pageYOffset;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const docHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
       const scrollPercent = (scrollTop / docHeight) * 100;
 
       // Consider portfolio "completed" when user scrolls 85% through
       if (scrollPercent >= 85 && !isCompleted) {
         setIsCompleted(true);
-        
+
         // Show rating form after 2 seconds delay
         timeoutId = setTimeout(() => {
           const hasRated = localStorage.getItem("portfolio-rated");
@@ -29,7 +30,7 @@ export function usePortfolioCompletion() {
     };
 
     window.addEventListener("scroll", handleScroll);
-    
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
       if (timeoutId) clearTimeout(timeoutId);

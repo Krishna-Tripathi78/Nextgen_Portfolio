@@ -1,6 +1,6 @@
 "use client";
 
-import { useIsMobile } from "@/hooks/use-responsive-zoom";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface ResponsiveWrapperProps {
   children: React.ReactNode;

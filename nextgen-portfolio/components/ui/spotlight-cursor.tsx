@@ -16,7 +16,7 @@ export function SpotlightCursor() {
   }, []);
 
   const isDark = theme === "dark";
-  const gradient = isDark 
+  const gradient = isDark
     ? "radial-gradient(circle, rgba(168,85,247,0.15) 0%, transparent 70%)"
     : "radial-gradient(circle, rgba(147,51,234,0.12) 0%, transparent 70%)";
 

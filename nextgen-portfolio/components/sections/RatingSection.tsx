@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { IconStar, IconX } from "@tabler/icons-react";
+import { useState } from "react";
 
 interface RatingFormProps {
   isVisible: boolean;
@@ -20,13 +20,13 @@ export function RatingSection({ isVisible, onClose }: RatingFormProps) {
     if (rating === 0) return;
 
     setIsSubmitting(true);
-    
+
     // Simulate API call - replace with actual submission logic
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
     setIsSubmitted(true);
     setIsSubmitting(false);
-    
+
     // Auto close after 3 seconds
     setTimeout(() => {
       onClose();

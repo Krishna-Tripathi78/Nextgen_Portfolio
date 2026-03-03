@@ -1,12 +1,18 @@
+import {
+  CheckCircle,
+  Github,
+  Globe,
+  Linkedin,
+  Mail,
+  MapPin,
+  Twitter,
+} from "lucide-react";
 import Link from "next/link";
 import { defineQuery } from "next-sanity";
-import { BackgroundRippleEffect } from "@/components/ui/background-ripple-effect";
 import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
+import { ProfileImage } from "@/components/ui/profile-image";
 import { urlFor } from "@/sanity/lib/image";
 import { sanityFetch } from "@/sanity/lib/live";
-import { ProfileImage } from "@/components/ui/profile-image";
-import { Github, Linkedin, Twitter, Globe, Mail, MapPin, CheckCircle } from "lucide-react";
-import { AITwinButton } from "@/components/ui/AITwinButton";
 
 const HERO_QUERY = defineQuery(`*[_id == "singleton-profile"][0]{
   firstName,
@@ -43,8 +49,12 @@ export async function HeroSection() {
             {/* Text Content */}
             <div className="@container/hero space-y-3 sm:space-y-4 md:space-y-6 text-center lg:text-left order-2 lg:order-1">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight animate-fade-in leading-tight">
-                <span className="bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 dark:from-white dark:via-neutral-200 dark:to-white bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]">{profile.firstName}</span>{" "}
-                <span className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 dark:from-purple-400 dark:via-pink-400 dark:to-orange-400 bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]">{profile.lastName}</span>
+                <span className="bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 dark:from-white dark:via-neutral-200 dark:to-white bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]">
+                  {profile.firstName}
+                </span>{" "}
+                <span className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 dark:from-purple-400 dark:via-pink-400 dark:to-orange-400 bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]">
+                  {profile.lastName}
+                </span>
               </h1>
               {profile.headlineStaticText &&
               profile.headlineAnimatedWords &&
@@ -60,7 +70,10 @@ export async function HeroSection() {
                   {profile.headline}
                 </p>
               )}
-              <p className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-neutral-300 leading-relaxed animate-fade-in-up max-w-2xl mx-auto lg:mx-0" style={{ animationDelay: '0.2s' }}>
+              <p
+                className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-neutral-300 leading-relaxed animate-fade-in-up max-w-2xl mx-auto lg:mx-0"
+                style={{ animationDelay: "0.2s" }}
+              >
                 {profile.shortBio}
               </p>
 
@@ -113,7 +126,10 @@ export async function HeroSection() {
                 </div>
               )}
 
-              <div className="flex flex-col sm:flex-row sm:flex-wrap justify-center lg:justify-start gap-2 sm:gap-3 sm:gap-x-4 md:gap-x-6 pt-2 sm:pt-4 text-xs sm:text-sm animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+              <div
+                className="flex flex-col sm:flex-row sm:flex-wrap justify-center lg:justify-start gap-2 sm:gap-3 sm:gap-x-4 md:gap-x-6 pt-2 sm:pt-4 text-xs sm:text-sm animate-fade-in-up"
+                style={{ animationDelay: "0.4s" }}
+              >
                 {profile.email && (
                   <div className="flex items-center gap-1.5 sm:gap-2 text-cyan-600 dark:text-cyan-400 hover:scale-110 transition-transform">
                     <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4" />

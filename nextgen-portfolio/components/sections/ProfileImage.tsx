@@ -8,7 +8,11 @@ interface ProfileImageProps {
   lastName: string;
 }
 
-export function ProfileImage({ imageUrl, firstName, lastName }: ProfileImageProps) {
+export function ProfileImage({
+  imageUrl,
+  firstName,
+  lastName,
+}: ProfileImageProps) {
   return (
     <div className="flex justify-center items-center">
       <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96">

@@ -1,9 +1,9 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { motion } from "motion/react";
 import DottedMap from "dotted-map";
+import { motion } from "motion/react";
 import { useTheme } from "next-themes";
+import { useRef, useState } from "react";
 
 interface MapProps {
   dots?: Array<{
@@ -38,7 +38,7 @@ export default function WorldMap({
 
   const createCurvedPath = (
     start: { x: number; y: number },
-    end: { x: number; y: number }
+    end: { x: number; y: number },
   ) => {
     const midX = (start.x + end.x) / 2;
     const midY = Math.min(start.y, end.y) - 50;
@@ -49,30 +49,36 @@ export default function WorldMap({
     <div className="w-full aspect-[2/1] rounded-lg relative font-sans">
       {/* Stats Overlay */}
       <div className="absolute top-4 left-4 z-10 space-y-2">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 backdrop-blur-md border border-purple-500/30 rounded-lg px-4 py-2"
         >
-          <div className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">5+</div>
+          <div className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            5+
+          </div>
           <div className="text-xs text-muted-foreground">Countries</div>
         </motion.div>
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.1 }}
           className="bg-gradient-to-r from-cyan-500/20 to-blue-500/20 backdrop-blur-md border border-cyan-500/30 rounded-lg px-4 py-2"
         >
-          <div className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">24/7</div>
+          <div className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+            24/7
+          </div>
           <div className="text-xs text-muted-foreground">Available</div>
         </motion.div>
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2 }}
           className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 backdrop-blur-md border border-green-500/30 rounded-lg px-4 py-2"
         >
-          <div className="text-2xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">100%</div>
+          <div className="text-2xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
+            100%
+          </div>
           <div className="text-xs text-muted-foreground">Remote</div>
         </motion.div>
       </div>
@@ -142,7 +148,14 @@ export default function WorldMap({
         <defs>
           {/* Gradient lines for each path */}
           {dots.map((_, i) => (
-            <linearGradient key={`gradient-${i}`} id={`gradient-line-${i}`} x1="0%" y1="0%" x2="100%" y2="0%">
+            <linearGradient
+              key={`gradient-${i}`}
+              id={`gradient-line-${i}`}
+              x1="0%"
+              y1="0%"
+              x2="100%"
+              y2="0%"
+            >
               <stop offset="0%" stopColor="#8b5cf6" stopOpacity="0.8" />
               <stop offset="50%" stopColor="#ec4899" stopOpacity="0.9" />
               <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.8" />
@@ -164,7 +177,9 @@ export default function WorldMap({
                 cy={projectPoint(dot.start.lat, dot.start.lng).y}
                 r="3"
                 fill="url(#dot-gradient)"
-                style={{ filter: "drop-shadow(0 0 8px rgba(139, 92, 246, 0.8))" }}
+                style={{
+                  filter: "drop-shadow(0 0 8px rgba(139, 92, 246, 0.8))",
+                }}
                 className="pointer-events-auto cursor-pointer"
                 onMouseEnter={() => setHoveredDot(i * 2)}
                 onMouseLeave={() => setHoveredDot(null)}
@@ -204,11 +219,11 @@ export default function WorldMap({
                     y={projectPoint(dot.start.lat, dot.start.lng).y - 15}
                     textAnchor="middle"
                     className="text-xs font-bold fill-purple-300"
-                    style={{ 
+                    style={{
                       filter: "drop-shadow(0 0 3px rgba(139, 92, 246, 0.6))",
                       paintOrder: "stroke fill",
                       stroke: "rgba(0, 0, 0, 0.8)",
-                      strokeWidth: "2px"
+                      strokeWidth: "2px",
                     }}
                   >
                     {dot.start.label}
@@ -238,7 +253,9 @@ export default function WorldMap({
                 cy={projectPoint(dot.end.lat, dot.end.lng).y}
                 r="3"
                 fill="url(#dot-gradient)"
-                style={{ filter: "drop-shadow(0 0 8px rgba(6, 182, 212, 0.8))" }}
+                style={{
+                  filter: "drop-shadow(0 0 8px rgba(6, 182, 212, 0.8))",
+                }}
                 className="pointer-events-auto cursor-pointer"
                 onMouseEnter={() => setHoveredDot(i * 2 + 1)}
                 onMouseLeave={() => setHoveredDot(null)}
@@ -278,11 +295,11 @@ export default function WorldMap({
                     y={projectPoint(dot.end.lat, dot.end.lng).y - 15}
                     textAnchor="middle"
                     className="text-xs font-bold fill-cyan-300"
-                    style={{ 
+                    style={{
                       filter: "drop-shadow(0 0 3px rgba(6, 182, 212, 0.6))",
                       paintOrder: "stroke fill",
                       stroke: "rgba(0, 0, 0, 0.8)",
-                      strokeWidth: "2px"
+                      strokeWidth: "2px",
                     }}
                   >
                     {dot.end.label}
@@ -307,7 +324,7 @@ export default function WorldMap({
             </g>
           </g>
         ))}
-        
+
         <defs>
           <radialGradient id="dot-gradient">
             <stop offset="0%" stopColor="#ec4899" />

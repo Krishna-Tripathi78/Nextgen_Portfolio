@@ -47,8 +47,6 @@ export const structure: StructureResolver = (S) =>
                 .icon(AsteriskIcon)
                 .schemaType("skill")
                 .child(S.documentTypeList("skill").title("Skills")),
-
-
             ]),
         ),
 
@@ -97,8 +95,6 @@ export const structure: StructureResolver = (S) =>
         ),
 
       S.divider(),
-
-
 
       // Contact Form Submissions
       S.listItem()

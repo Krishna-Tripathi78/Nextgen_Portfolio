@@ -1,38 +1,38 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import * as RechartsPrimitive from "recharts"
+import * as React from "react";
+import * as RechartsPrimitive from "recharts";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const ChartContext = React.createContext<{
-  config: ChartConfig
-} | null>(null)
+  config: ChartConfig;
+} | null>(null);
 
 function useChart() {
-  const context = React.useContext(ChartContext)
+  const context = React.useContext(ChartContext);
   if (!context) {
-    throw new Error("useChart must be used within a <ChartContainer />")
+    throw new Error("useChart must be used within a <ChartContainer />");
   }
-  return context
+  return context;
 }
 
 type ChartConfig = {
   [k: string]: {
-    label?: React.ReactNode
-    icon?: React.ComponentType
-    color?: string
-    theme?: Record<string, string>
-  }
-}
+    label?: React.ReactNode;
+    icon?: React.ComponentType;
+    color?: string;
+    theme?: Record<string, string>;
+  };
+};
 
 const ChartContainer = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<"div"> & {
-    config: ChartConfig
+    config: ChartConfig;
     children: React.ComponentProps<
       typeof RechartsPrimitive.ResponsiveContainer
-    >["children"]
+    >["children"];
   }
 >(({ id, className, children, config, ...props }, ref) => {
   return (
@@ -48,27 +48,27 @@ const ChartContainer = React.forwardRef<
         </RechartsPrimitive.ResponsiveContainer>
       </div>
     </ChartContext.Provider>
-  )
-})
-ChartContainer.displayName = "ChartContainer"
+  );
+});
+ChartContainer.displayName = "ChartContainer";
 
-const ChartTooltip = RechartsPrimitive.Tooltip
+const ChartTooltip = RechartsPrimitive.Tooltip;
 
 const ChartTooltipContent = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<typeof RechartsPrimitive.Tooltip> &
     React.ComponentProps<"div"> & {
-      hideLabel?: boolean
-      hideIndicator?: boolean
-      indicator?: "line" | "dot" | "dashed"
-      nameKey?: string
-      labelKey?: string
-      payload?: any[]
-      label?: any
-      labelFormatter?: any
-      labelClassName?: string
-      formatter?: any
-      color?: string
+      hideLabel?: boolean;
+      hideIndicator?: boolean;
+      indicator?: "line" | "dot" | "dashed";
+      nameKey?: string;
+      labelKey?: string;
+      payload?: any[];
+      label?: any;
+      labelFormatter?: any;
+      labelClassName?: string;
+      formatter?: any;
+      color?: string;
     }
 >(
   (
@@ -87,12 +87,12 @@ const ChartTooltipContent = React.forwardRef<
       nameKey,
       labelKey,
     },
-    ref
+    ref,
   ) => {
-    const { config } = useChart()
+    const { config } = useChart();
 
     if (!active || !payload?.length) {
-      return null
+      return null;
     }
 
     return (
@@ -100,7 +100,7 @@ const ChartTooltipContent = React.forwardRef<
         ref={ref}
         className={cn(
           "grid min-w-[8rem] items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl",
-          className
+          className,
         )}
       >
         {!hideLabel && (
@@ -110,16 +110,16 @@ const ChartTooltipContent = React.forwardRef<
         )}
         <div className="grid gap-1.5">
           {payload.map((item: any, index: number) => {
-            const key = `${nameKey || item.name || item.dataKey || "value"}-${index}`
-            const itemConfig = config[item.dataKey as keyof typeof config]
-            const indicatorColor = color || item.payload.fill || item.color
+            const key = `${nameKey || item.name || item.dataKey || "value"}-${index}`;
+            const itemConfig = config[item.dataKey as keyof typeof config];
+            const indicatorColor = color || item.payload.fill || item.color;
 
             return (
               <div
                 key={key}
                 className={cn(
                   "flex w-full items-center gap-2",
-                  indicator === "dot" && "items-center"
+                  indicator === "dot" && "items-center",
                 )}
               >
                 {!hideIndicator && (
@@ -128,7 +128,8 @@ const ChartTooltipContent = React.forwardRef<
                       "shrink-0 rounded-[2px]",
                       indicator === "dot" && "h-2.5 w-2.5 rounded-full",
                       indicator === "line" && "h-2.5 w-0.5",
-                      indicator === "dashed" && "h-2.5 w-0.5 border-l-2 border-dashed"
+                      indicator === "dashed" &&
+                        "h-2.5 w-0.5 border-l-2 border-dashed",
                     )}
                     style={{
                       backgroundColor: indicatorColor,
@@ -141,22 +142,19 @@ const ChartTooltipContent = React.forwardRef<
                     {itemConfig?.label || item.name}
                   </span>
                   <span className="font-mono font-medium tabular-nums text-foreground">
-                    {formatter ? formatter(item.value, item.name, item, index, payload) : item.value}
+                    {formatter
+                      ? formatter(item.value, item.name, item, index, payload)
+                      : item.value}
                   </span>
                 </div>
               </div>
-            )
+            );
           })}
         </div>
       </div>
-    )
-  }
-)
-ChartTooltipContent.displayName = "ChartTooltipContent"
+    );
+  },
+);
+ChartTooltipContent.displayName = "ChartTooltipContent";
 
-export {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-  type ChartConfig,
-}
+export { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig };

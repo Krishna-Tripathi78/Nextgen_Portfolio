@@ -1,8 +1,7 @@
 "use client";
-import {useClerk,useUser} from "@clerk/nextjs";
-import {MessageCircle, X} from "lucide-react";
-import {useState} from "react";
+import { useClerk, useUser } from "@clerk/nextjs";
 import Image from "next/image";
+import { useState } from "react";
 
 interface ProfileImageProps {
   imageUrl: string;
@@ -10,14 +9,14 @@ interface ProfileImageProps {
   lastName: string;
 }
 
-export function ProfileImage ({
+export function ProfileImage({
   imageUrl,
   firstName,
   lastName,
 }: ProfileImageProps) {
-  const [isHovered, setIsHovered] = useState(false);
-  const {isSignedIn} = useUser();
-  const {openSignIn} = useClerk();
+  const [_isHovered, setIsHovered] = useState(false);
+  const { isSignedIn } = useUser();
+  const { openSignIn } = useClerk();
 
   return (
     <button
@@ -28,7 +27,7 @@ export function ProfileImage ({
       onMouseLeave={() => setIsHovered(false)}
       aria-label="Profile Image"
     >
-      <Image 
+      <Image
         src={imageUrl}
         alt={`${firstName} ${lastName}`}
         fill

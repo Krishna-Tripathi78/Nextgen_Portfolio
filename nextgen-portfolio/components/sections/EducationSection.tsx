@@ -4,6 +4,7 @@ import Link from "next/link";
 import { defineQuery } from "next-sanity";
 import { urlFor } from "@/sanity/lib/image";
 import { sanityFetch } from "@/sanity/lib/live";
+import type { Education } from "@/types/sanity";
 
 const EDUCATION_QUERY =
   defineQuery(`*[_type == "education"] | order(endDate desc, startDate desc){
@@ -65,7 +66,7 @@ export async function EducationSection() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {education.map((edu: any) => (
+          {education.map((edu: Education) => (
             <div
               key={`${edu.institution}-${edu.degree}-${edu.startDate}`}
               className="group relative bg-card border rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300"
@@ -138,15 +139,17 @@ export async function EducationSection() {
                       Achievements & Honors
                     </h4>
                     <ul className="space-y-1.5">
-                      {edu.achievements.map((achievement: any, idx: number) => (
-                        <li
-                          key={`${edu.institution}-achievement-${idx}`}
-                          className="text-xs text-muted-foreground flex items-start gap-2"
-                        >
-                          <span className="text-primary mt-1">▸</span>
-                          <span className="flex-1">{achievement}</span>
-                        </li>
-                      ))}
+                      {edu.achievements.map(
+                        (achievement: string, idx: number) => (
+                          <li
+                            key={`${edu.institution}-achievement-${idx}`}
+                            className="text-xs text-muted-foreground flex items-start gap-2"
+                          >
+                            <span className="text-primary mt-1">▸</span>
+                            <span className="flex-1">{achievement}</span>
+                          </li>
+                        ),
+                      )}
                     </ul>
                   </div>
                 )}

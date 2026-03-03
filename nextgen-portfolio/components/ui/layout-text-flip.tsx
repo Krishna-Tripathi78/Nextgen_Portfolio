@@ -1,6 +1,6 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
 export const LayoutTextFlip = ({
@@ -22,10 +22,15 @@ export const LayoutTextFlip = ({
     }, duration);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [duration, words.length]);
 
   return (
-    <div className={cn("flex flex-wrap justify-center lg:justify-start items-center gap-3", className)}>
+    <div
+      className={cn(
+        "flex flex-wrap justify-center lg:justify-start items-center gap-3",
+        className,
+      )}
+    >
       <motion.span
         layoutId="subtext"
         className="text-2xl font-bold tracking-tight drop-shadow-lg md:text-4xl"

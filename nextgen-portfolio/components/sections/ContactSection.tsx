@@ -1,10 +1,17 @@
-
+import {
+  Github,
+  Globe,
+  Linkedin,
+  Mail,
+  MapPin,
+  Phone,
+  Twitter,
+} from "lucide-react";
 import Link from "next/link";
 import { defineQuery } from "next-sanity";
 import WorldMapDemo from "@/components/ui/world-map-demo";
 import { sanityFetch } from "@/sanity/lib/live";
 import { ContactForm } from "./ContactForm";
-import { Mail, Phone, MapPin, Github, Linkedin, Twitter, Globe } from "lucide-react";
 
 const PROFILE_QUERY = defineQuery(`*[_id == "singleton-profile"][0]{
   email,

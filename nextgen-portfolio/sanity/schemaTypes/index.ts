@@ -10,7 +10,6 @@ import project from "./project";
 import siteSettings from "./siteSettings";
 import skill from "./skill";
 
-
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
     profile,

@@ -2,6 +2,7 @@ import { PortableText } from "@portabletext/react";
 import Link from "next/link";
 import { defineQuery } from "next-sanity";
 import { sanityFetch } from "@/sanity/lib/live";
+import type { ProfileStat } from "@/types/sanity";
 
 const ABOUT_QUERY = defineQuery(`*[_id == "singleton-profile"][0]{
   firstName,
@@ -25,8 +26,12 @@ export async function AboutSection() {
     <section id="about" className="py-16 sm:py-20 px-4 sm:px-6">
       <div className="container mx-auto max-w-4xl">
         <div className="text-center mb-8 sm:mb-12">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">About Me</h2>
-          <p className="text-lg sm:text-xl text-muted-foreground">Get to know me better</p>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
+            About Me
+          </h2>
+          <p className="text-lg sm:text-xl text-muted-foreground">
+            Get to know me better
+          </p>
         </div>
 
         <div className="prose prose-sm sm:prose-lg dark:prose-invert max-w-none">
@@ -41,7 +46,9 @@ export async function AboutSection() {
                     </p>
                   ),
                   h2: ({ children }) => (
-                    <h2 className="text-2xl sm:text-3xl font-bold mt-6 sm:mt-8 mb-3 sm:mb-4">{children}</h2>
+                    <h2 className="text-2xl sm:text-3xl font-bold mt-6 sm:mt-8 mb-3 sm:mb-4">
+                      {children}
+                    </h2>
                   ),
                   h3: ({ children }) => (
                     <h3 className="text-xl sm:text-2xl font-semibold mt-4 sm:mt-6 mb-2 sm:mb-3">
@@ -97,7 +104,7 @@ export async function AboutSection() {
         {profile.stats && profile.stats.length > 0 && (
           <div className="@container mt-8 sm:mt-12 pt-8 sm:pt-12 border-t">
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-              {profile.stats.map((stat: any, idx: number) => (
+              {profile.stats.map((stat: ProfileStat, idx: number) => (
                 <div
                   key={`${stat.label}-${idx}`}
                   className="@container/stat text-center"

@@ -1,6 +1,6 @@
-import { createClient } from 'next-sanity'
+import { createClient } from "next-sanity";
 
-import { apiVersion, dataset, projectId } from '../env'
+import { apiVersion, dataset, projectId } from "../env";
 
 export const serverClient = createClient({
   projectId,
@@ -8,4 +8,4 @@ export const serverClient = createClient({
   apiVersion,
   useCdn: false,
   token: process.env.SANITY_API_WRITE_TOKEN,
-})
+});

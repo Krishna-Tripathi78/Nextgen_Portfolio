@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
-import { Zap, Target, Rocket, Sparkles } from "lucide-react";
+import { Rocket, Sparkles, Target, Zap } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
 
 export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
   const [opacity, setOpacity] = useState(1);
@@ -10,15 +10,16 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
   const [mounted, setMounted] = useState(false);
   const [activeBadge, setActiveBadge] = useState(-1);
 
-  const particles = useMemo(() => 
-    Array.from({ length: 30 }, (_, i) => ({
-      id: i,
-      left: Math.random() * 100,
-      top: Math.random() * 100,
-      duration: 3 + Math.random() * 4,
-      delay: Math.random() * 2
-    })),
-    []
+  const particles = useMemo(
+    () =>
+      Array.from({ length: 30 }, (_, i) => ({
+        id: i,
+        left: Math.random() * 100,
+        top: Math.random() * 100,
+        duration: 3 + Math.random() * 4,
+        delay: Math.random() * 2,
+      })),
+    [],
   );
 
   useEffect(() => {
@@ -27,7 +28,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
 
   useEffect(() => {
     const progressInterval = setInterval(() => {
-      setProgress(prev => {
+      setProgress((prev) => {
         const next = prev + 2;
         if (next >= 25 && stage === 0) setStage(1);
         if (next >= 50 && stage === 1) setStage(2);
@@ -42,7 +43,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
 
     // Badge lighting sequence
     const badgeTimers = [
-      setTimeout(() => setActiveBadge(0), 800),  // Lightning Fast
+      setTimeout(() => setActiveBadge(0), 800), // Lightning Fast
       setTimeout(() => setActiveBadge(1), 1600), // Pixel Perfect
       setTimeout(() => setActiveBadge(2), 2400), // Cutting Edge
       setTimeout(() => setActiveBadge(3), 3200), // Innovative
@@ -61,17 +62,21 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
   }, [onComplete, stage]);
 
   return (
-    <div 
+    <div
       className="fixed inset-0 z-50 bg-white dark:bg-black flex items-center justify-center transition-opacity duration-500 overflow-hidden"
       style={{ opacity }}
     >
       {/* Animated grid background */}
       <div className="absolute inset-0 opacity-10 dark:opacity-20">
-        <div className="absolute inset-0" style={{
-          backgroundImage: 'linear-gradient(rgba(100, 100, 100, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(100, 100, 100, 0.1) 1px, transparent 1px)',
-          backgroundSize: '50px 50px',
-          animation: 'gridMove 20s linear infinite'
-        }} />
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(100, 100, 100, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(100, 100, 100, 0.1) 1px, transparent 1px)",
+            backgroundSize: "50px 50px",
+            animation: "gridMove 20s linear infinite",
+          }}
+        />
       </div>
 
       {/* Radial gradient orbs */}
@@ -82,18 +87,19 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
       </div>
 
       {/* Floating particles */}
-      {mounted && particles.map((particle) => (
-        <div
-          key={particle.id}
-          className="absolute w-1 h-1 bg-purple-400/30 dark:bg-purple-400/40 rounded-full"
-          style={{
-            left: `${particle.left}%`,
-            top: `${particle.top}%`,
-            animation: `float ${particle.duration}s ease-in-out infinite`,
-            animationDelay: `${particle.delay}s`
-          }}
-        />
-      ))}
+      {mounted &&
+        particles.map((particle) => (
+          <div
+            key={particle.id}
+            className="absolute w-1 h-1 bg-purple-400/30 dark:bg-purple-400/40 rounded-full"
+            style={{
+              left: `${particle.left}%`,
+              top: `${particle.top}%`,
+              animation: `float ${particle.duration}s ease-in-out infinite`,
+              animationDelay: `${particle.delay}s`,
+            }}
+          />
+        ))}
 
       {/* Main content */}
       <div className="relative z-10 flex flex-col items-center gap-8 lg:gap-12 px-4 scale-[0.67] origin-center">
@@ -106,7 +112,9 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
               </span>
             </h1>
           </div>
-          <p className="text-gray-600 dark:text-slate-400 text-base md:text-lg font-semibold tracking-wide">Crafting Digital Excellence</p>
+          <p className="text-gray-600 dark:text-slate-400 text-base md:text-lg font-semibold tracking-wide">
+            Crafting Digital Excellence
+          </p>
         </div>
 
         {/* Center - 3D Logo with rings */}
@@ -115,10 +123,19 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
           <div className="absolute inset-0 animate-spin-slow">
             <div className="absolute inset-8 border-2 border-purple-500/30 dark:border-purple-500/30 rounded-full" />
           </div>
-          <div className="absolute inset-0 animate-spin-reverse" style={{ animationDuration: '4s' }}>
-            <div className="absolute inset-4 border-2 border-pink-500/30 dark:border-pink-500/30 rounded-full" style={{ borderStyle: 'dashed' }} />
+          <div
+            className="absolute inset-0 animate-spin-reverse"
+            style={{ animationDuration: "4s" }}
+          >
+            <div
+              className="absolute inset-4 border-2 border-pink-500/30 dark:border-pink-500/30 rounded-full"
+              style={{ borderStyle: "dashed" }}
+            />
           </div>
-          <div className="absolute inset-0 animate-spin-slow" style={{ animationDuration: '6s' }}>
+          <div
+            className="absolute inset-0 animate-spin-slow"
+            style={{ animationDuration: "6s" }}
+          >
             <div className="absolute inset-12 border border-orange-500/30 dark:border-orange-500/30 rounded-full" />
           </div>
 
@@ -126,24 +143,35 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
           <div className="relative animate-float">
             <div className="relative w-32 h-32 rounded-full bg-gradient-to-br from-purple-500 via-pink-500 to-orange-500 flex items-center justify-center shadow-xl">
               <div className="absolute inset-0 rounded-full overflow-hidden">
-                <div className="absolute inset-0 bg-white/20 animate-shimmer" style={{ transform: 'translateX(-100%) rotate(45deg)' }} />
+                <div
+                  className="absolute inset-0 bg-white/20 animate-shimmer"
+                  style={{ transform: "translateX(-100%) rotate(45deg)" }}
+                />
               </div>
-              <span className="relative text-7xl font-black text-white z-10">K</span>
+              <span className="relative text-7xl font-black text-white z-10">
+                K
+              </span>
             </div>
-            
+
             {/* Orbiting dots */}
-            {[0, 120, 240].map((angle, i) => (
+            {[0, 120, 240].map((_angle, i) => (
               <div
                 key={i}
                 className="absolute top-1/2 left-1/2 w-4 h-4 -ml-2 -mt-2"
                 style={{
                   animation: `orbit 3s linear infinite`,
-                  animationDelay: `${i * 1}s`
+                  animationDelay: `${i * 1}s`,
                 }}
               >
-                <div className={`w-4 h-4 rounded-full ${
-                  i === 0 ? 'bg-purple-500' : i === 1 ? 'bg-pink-500' : 'bg-orange-500'
-                } shadow-lg`} />
+                <div
+                  className={`w-4 h-4 rounded-full ${
+                    i === 0
+                      ? "bg-purple-500"
+                      : i === 1
+                        ? "bg-pink-500"
+                        : "bg-orange-500"
+                  } shadow-lg`}
+                />
               </div>
             ))}
           </div>
@@ -154,7 +182,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
           {/* Progress bar */}
           <div className="relative">
             <div className="h-1.5 bg-gray-200 dark:bg-slate-800 rounded-full overflow-hidden">
-              <div 
+              <div
                 className="h-full bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 transition-all duration-300 ease-out relative"
                 style={{ width: `${progress}%` }}
               >
@@ -162,23 +190,41 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
               </div>
             </div>
             <div className="flex justify-between mt-3 text-xs">
-              <span className="text-gray-600 dark:text-slate-400 font-semibold">{['Initializing', 'Loading Assets', 'Preparing UI', 'Ready'][stage]}</span>
-              <span className="text-gray-500 dark:text-slate-500 font-mono tabular-nums">{progress}%</span>
+              <span className="text-gray-600 dark:text-slate-400 font-semibold">
+                {
+                  ["Initializing", "Loading Assets", "Preparing UI", "Ready"][
+                    stage
+                  ]
+                }
+              </span>
+              <span className="text-gray-500 dark:text-slate-500 font-mono tabular-nums">
+                {progress}%
+              </span>
             </div>
           </div>
 
           {/* Status indicators */}
           <div className="flex justify-center gap-8">
-            {['Initialize', 'Load', 'Prepare', 'Complete'].map((label, i) => (
+            {["Initialize", "Load", "Prepare", "Complete"].map((label, i) => (
               <div key={i} className="flex flex-col items-center gap-2">
-                <div className={`w-3 h-3 rounded-full transition-all duration-500 ${
-                  stage > i ? 'bg-green-500 shadow-md shadow-green-500/30' : 
-                  stage === i ? 'bg-purple-500 animate-pulse shadow-md shadow-purple-500/30' : 
-                  'bg-gray-300 dark:bg-slate-700'
-                }`} />
-                <span className={`text-xs font-semibold transition-colors ${
-                  stage >= i ? 'text-gray-700 dark:text-slate-300' : 'text-gray-400 dark:text-slate-600'
-                }`}>{label}</span>
+                <div
+                  className={`w-3 h-3 rounded-full transition-all duration-500 ${
+                    stage > i
+                      ? "bg-green-500 shadow-md shadow-green-500/30"
+                      : stage === i
+                        ? "bg-purple-500 animate-pulse shadow-md shadow-purple-500/30"
+                        : "bg-gray-300 dark:bg-slate-700"
+                  }`}
+                />
+                <span
+                  className={`text-xs font-semibold transition-colors ${
+                    stage >= i
+                      ? "text-gray-700 dark:text-slate-300"
+                      : "text-gray-400 dark:text-slate-600"
+                  }`}
+                >
+                  {label}
+                </span>
               </div>
             ))}
           </div>
@@ -187,37 +233,73 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
         {/* Bottom badges with sequential lighting */}
         <div className="flex items-center gap-6">
           {[
-            { icon: Zap, label: 'LIGHTNING FAST', color: 'from-cyan-500 to-blue-500' },
-            { icon: Target, label: 'PIXEL PERFECT', color: 'from-purple-500 to-pink-500' },
-            { icon: Rocket, label: 'CUTTING EDGE', color: 'from-pink-500 to-orange-500' },
-            { icon: Sparkles, label: 'INNOVATIVE', color: 'from-teal-500 to-green-500' }
+            {
+              icon: Zap,
+              label: "LIGHTNING FAST",
+              color: "from-cyan-500 to-blue-500",
+            },
+            {
+              icon: Target,
+              label: "PIXEL PERFECT",
+              color: "from-purple-500 to-pink-500",
+            },
+            {
+              icon: Rocket,
+              label: "CUTTING EDGE",
+              color: "from-pink-500 to-orange-500",
+            },
+            {
+              icon: Sparkles,
+              label: "INNOVATIVE",
+              color: "from-teal-500 to-green-500",
+            },
           ].map((badge, i) => {
             const isActive = activeBadge >= i;
             const isCurrent = activeBadge === i;
             const IconComponent = badge.icon;
-            
+
             return (
-              <div key={i} className={`flex flex-col items-center gap-2 transition-all duration-500 ${
-                isActive ? 'opacity-100 scale-110' : 'opacity-40 scale-100'
-              }`}>
-                <div className={`relative w-12 h-12 rounded-full bg-gradient-to-br ${badge.color} flex items-center justify-center shadow-lg transition-all duration-500 ${
-                  isCurrent ? 'animate-pulse shadow-2xl' : isActive ? 'shadow-xl' : 'shadow-md'
-                }`}>
+              <div
+                key={i}
+                className={`flex flex-col items-center gap-2 transition-all duration-500 ${
+                  isActive ? "opacity-100 scale-110" : "opacity-40 scale-100"
+                }`}
+              >
+                <div
+                  className={`relative w-12 h-12 rounded-full bg-gradient-to-br ${badge.color} flex items-center justify-center shadow-lg transition-all duration-500 ${
+                    isCurrent
+                      ? "animate-pulse shadow-2xl"
+                      : isActive
+                        ? "shadow-xl"
+                        : "shadow-md"
+                  }`}
+                >
                   {/* Glow effect for active badge */}
                   {isCurrent && (
-                    <div className={`absolute inset-0 rounded-full bg-gradient-to-br ${badge.color} opacity-50 animate-ping`} />
+                    <div
+                      className={`absolute inset-0 rounded-full bg-gradient-to-br ${badge.color} opacity-50 animate-ping`}
+                    />
                   )}
                   {/* Shimmer effect for active badges */}
                   {isActive && (
                     <div className="absolute inset-0 rounded-full overflow-hidden">
-                      <div className="absolute inset-0 bg-white/30 animate-shimmer" style={{ transform: 'translateX(-100%) rotate(45deg)' }} />
+                      <div
+                        className="absolute inset-0 bg-white/30 animate-shimmer"
+                        style={{ transform: "translateX(-100%) rotate(45deg)" }}
+                      />
                     </div>
                   )}
                   <IconComponent className="relative w-6 h-6 text-white z-10" />
                 </div>
-                <span className={`text-[9px] font-bold tracking-wider transition-all duration-500 ${
-                  isActive ? 'text-gray-700 dark:text-slate-300' : 'text-gray-400 dark:text-slate-600'
-                }`}>{badge.label}</span>
+                <span
+                  className={`text-[9px] font-bold tracking-wider transition-all duration-500 ${
+                    isActive
+                      ? "text-gray-700 dark:text-slate-300"
+                      : "text-gray-400 dark:text-slate-600"
+                  }`}
+                >
+                  {badge.label}
+                </span>
               </div>
             );
           })}

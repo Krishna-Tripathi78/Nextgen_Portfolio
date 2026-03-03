@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { defineQuery } from "next-sanity";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { urlFor } from "@/sanity/lib/image";
 import { sanityFetch } from "@/sanity/lib/live";
-import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
 const PROJECTS_QUERY =
   defineQuery(`*[_type == "project" && featured == true] | order(order asc)[0...6]{
@@ -31,16 +31,22 @@ export async function ProjectsSection() {
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
             Featured Projects
           </h2>
-          <p className="text-lg sm:text-xl text-muted-foreground">Some of my best work</p>
+          <p className="text-lg sm:text-xl text-muted-foreground">
+            Some of my best work
+          </p>
         </div>
 
         <div className="@container">
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
             {projects.map((project: any, idx: number) => (
-              <ScrollReveal key={project.slug?.current} className="transition-all">
+              <ScrollReveal
+                key={project.slug?.current}
+                className="transition-all"
+              >
                 <div
                   style={{ transitionDelay: `${idx * 100}ms` }}
-                  className="@container/card group bg-card border rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+                  className="@container/card group bg-card border rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300"
+                >
                   {/* Project Image */}
                   {project.coverImage && (
                     <div className="relative aspect-video overflow-hidden bg-muted">
@@ -77,29 +83,34 @@ export async function ProjectsSection() {
                     </div>
 
                     {/* Tech Stack */}
-                    {project.technologies && project.technologies.length > 0 && (
-                      <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                        {project.technologies.slice(0, 4).map((tech: any, idx: number) => {
-                          const techData =
-                            tech && typeof tech === "object" && "name" in tech
-                              ? tech
-                              : null;
-                          return techData?.name ? (
-                            <span
-                              key={`${project.slug?.current}-tech-${idx}`}
-                              className="text-xs px-2 py-1 rounded-md bg-muted"
-                            >
-                              {techData.name}
+                    {project.technologies &&
+                      project.technologies.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                          {project.technologies
+                            .slice(0, 4)
+                            .map((tech: any, idx: number) => {
+                              const techData =
+                                tech &&
+                                typeof tech === "object" &&
+                                "name" in tech
+                                  ? tech
+                                  : null;
+                              return techData?.name ? (
+                                <span
+                                  key={`${project.slug?.current}-tech-${idx}`}
+                                  className="text-xs px-2 py-1 rounded-md bg-muted"
+                                >
+                                  {techData.name}
+                                </span>
+                              ) : null;
+                            })}
+                          {project.technologies.length > 4 && (
+                            <span className="text-xs px-2 py-1 rounded-md bg-muted">
+                              +{project.technologies.length - 4}
                             </span>
-                          ) : null;
-                        })}
-                        {project.technologies.length > 4 && (
-                          <span className="text-xs px-2 py-1 rounded-md bg-muted">
-                            +{project.technologies.length - 4}
-                          </span>
-                        )}
-                      </div>
-                    )}
+                          )}
+                        </div>
+                      )}
 
                     {/* Actions */}
                     <div className="flex flex-col xs:flex-row gap-2 xs:gap-3 pt-2">

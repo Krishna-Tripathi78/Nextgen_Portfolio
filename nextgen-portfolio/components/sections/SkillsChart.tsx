@@ -28,16 +28,16 @@ export function SkillsChart({ skills }: SkillsChartProps) {
 
   // Gradient definitions for impressive visual effects
   const gradients = [
-    { id: 'gradient1', colors: ['#8b5cf6', '#ec4899'] }, // purple to pink
-    { id: 'gradient2', colors: ['#ec4899', '#f97316'] }, // pink to orange
-    { id: 'gradient3', colors: ['#f97316', '#f59e0b'] }, // orange to amber
-    { id: 'gradient4', colors: ['#06b6d4', '#3b82f6'] }, // cyan to blue
-    { id: 'gradient5', colors: ['#3b82f6', '#8b5cf6'] }, // blue to purple
-    { id: 'gradient6', colors: ['#10b981', '#06b6d4'] }, // green to cyan
-    { id: 'gradient7', colors: ['#f59e0b', '#ef4444'] }, // amber to red
-    { id: 'gradient8', colors: ['#14b8a6', '#10b981'] }, // teal to green
-    { id: 'gradient9', colors: ['#a855f7', '#ec4899'] }, // violet to pink
-    { id: 'gradient10', colors: ['#6366f1', '#8b5cf6'] }, // indigo to purple
+    { id: "gradient1", colors: ["#8b5cf6", "#ec4899"] }, // purple to pink
+    { id: "gradient2", colors: ["#ec4899", "#f97316"] }, // pink to orange
+    { id: "gradient3", colors: ["#f97316", "#f59e0b"] }, // orange to amber
+    { id: "gradient4", colors: ["#06b6d4", "#3b82f6"] }, // cyan to blue
+    { id: "gradient5", colors: ["#3b82f6", "#8b5cf6"] }, // blue to purple
+    { id: "gradient6", colors: ["#10b981", "#06b6d4"] }, // green to cyan
+    { id: "gradient7", colors: ["#f59e0b", "#ef4444"] }, // amber to red
+    { id: "gradient8", colors: ["#14b8a6", "#10b981"] }, // teal to green
+    { id: "gradient9", colors: ["#a855f7", "#ec4899"] }, // violet to pink
+    { id: "gradient10", colors: ["#6366f1", "#8b5cf6"] }, // indigo to purple
   ];
 
   // Group skills by category dynamically
@@ -88,7 +88,9 @@ export function SkillsChart({ skills }: SkillsChartProps) {
             {/* Category Header */}
             <div className="border-b bg-gradient-to-r from-muted/50 to-muted/30 px-4 py-3">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">{displayLabel}</h3>
+                <h3 className="text-lg font-semibold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+                  {displayLabel}
+                </h3>
                 <span className="text-xs px-2.5 py-1 rounded-full bg-gradient-to-r from-primary/20 to-primary/10 text-primary font-medium border border-primary/20">
                   {categorySkills.length}
                 </span>
@@ -116,18 +118,44 @@ export function SkillsChart({ skills }: SkillsChartProps) {
                 >
                   <defs>
                     {gradients.map((gradient) => (
-                      <linearGradient key={gradient.id} id={gradient.id} x1="0" y1="0" x2="1" y2="0">
-                        <stop offset="0%" stopColor={gradient.colors[0]} stopOpacity={0.95} />
-                        <stop offset="50%" stopColor={gradient.colors[0]} stopOpacity={0.85} />
-                        <stop offset="100%" stopColor={gradient.colors[1]} stopOpacity={0.95} />
+                      <linearGradient
+                        key={gradient.id}
+                        id={gradient.id}
+                        x1="0"
+                        y1="0"
+                        x2="1"
+                        y2="0"
+                      >
+                        <stop
+                          offset="0%"
+                          stopColor={gradient.colors[0]}
+                          stopOpacity={0.95}
+                        />
+                        <stop
+                          offset="50%"
+                          stopColor={gradient.colors[0]}
+                          stopOpacity={0.85}
+                        />
+                        <stop
+                          offset="100%"
+                          stopColor={gradient.colors[1]}
+                          stopOpacity={0.95}
+                        />
                       </linearGradient>
                     ))}
                     {gradients.map((gradient) => (
-                      <filter key={`glow-${gradient.id}`} id={`glow-${gradient.id}`} x="-50%" y="-50%" width="200%" height="200%">
-                        <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                      <filter
+                        key={`glow-${gradient.id}`}
+                        id={`glow-${gradient.id}`}
+                        x="-50%"
+                        y="-50%"
+                        width="200%"
+                        height="200%"
+                      >
+                        <feGaussianBlur stdDeviation="2" result="coloredBlur" />
                         <feMerge>
-                          <feMergeNode in="coloredBlur"/>
-                          <feMergeNode in="SourceGraphic"/>
+                          <feMergeNode in="coloredBlur" />
+                          <feMergeNode in="SourceGraphic" />
                         </feMerge>
                       </filter>
                     ))}
@@ -152,9 +180,9 @@ export function SkillsChart({ skills }: SkillsChartProps) {
                       />
                     }
                   />
-                  <Bar 
-                    dataKey="proficiency" 
-                    radius={[0, 8, 8, 0]} 
+                  <Bar
+                    dataKey="proficiency"
+                    radius={[0, 8, 8, 0]}
                     barSize={20}
                     className="transition-all duration-300 hover:opacity-80"
                   >

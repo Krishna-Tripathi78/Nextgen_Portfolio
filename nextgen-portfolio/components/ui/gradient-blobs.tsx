@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 export function GradientBlobs() {
   return (
@@ -23,5 +23,5 @@ export function GradientBlobs() {
         }
       `}</style>
     </div>
-  )
+  );
 }

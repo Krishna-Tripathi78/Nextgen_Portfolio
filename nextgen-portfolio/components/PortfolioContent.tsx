@@ -1,3 +1,4 @@
+import { RatingWrapper } from "@/components/RatingWrapper";
 import {
   AboutSection,
   AchievementsSection,
@@ -9,7 +10,6 @@ import {
   ProjectsSection,
   SkillsSection,
 } from "@/components/sections";
-import { RatingWrapper } from "@/components/RatingWrapper";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
 async function PortfolioContent() {
