@@ -97,7 +97,7 @@ export function ContactForm() {
             htmlFor="subject"
             className="block text-xs @md/form:text-sm font-medium mb-2"
           >
-            Subject
+            Subject (Optional)
           </label>
           <input
             type="text"
@@ -105,7 +105,6 @@ export function ContactForm() {
             name="subject"
             className="w-full px-3 py-1.5 @md/form:px-4 @md/form:py-2 rounded-lg border bg-background focus:outline-none focus:ring-2 focus:ring-primary text-sm @md/form:text-base"
             placeholder="What's this about?"
-            required
             disabled={isPending}
           />
         </div>
