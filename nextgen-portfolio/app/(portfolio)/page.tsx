@@ -1,10 +1,9 @@
 import PortfolioContent from "@/components/PortfolioContent";
-import { ResponsiveWrapper } from "@/components/ResponsiveWrapper";
 
-export default function Home() {
+export default async function Home() {
   return (
-    <ResponsiveWrapper>
+    <main className="min-h-screen">
       <PortfolioContent />
-    </ResponsiveWrapper>
+    </main>
   );
 }

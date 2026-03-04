@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
-import { useTheme } from "../ThemeProvider";
+import { useTheme } from "next-themes";
 
 export function ParticleField() {
   const canvasRef = useRef<HTMLCanvasElement>(null);

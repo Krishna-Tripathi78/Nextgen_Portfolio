@@ -1,10 +1,6 @@
 "use server";
 
-import type React from "react";
-import { Resend } from "resend";
-import { ContactFormEmailTemplate } from "@/components/emails/ContactFormEmail";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+import { serverClient } from "@/sanity/lib/serverClient";
 
 export async function submitContactForm(formData: FormData) {
   try {
@@ -13,42 +9,34 @@ export async function submitContactForm(formData: FormData) {
     const subject = formData.get("subject") as string;
     const message = formData.get("message") as string;
 
+    // Validate the required fields
     if (!name || !email || !message) {
       return {
         success: false,
-        error: "Please fill in all required fields.",
+        error: "Please fill in all required fields",
       };
     }
 
-    const { data, error } = await resend.emails.send({
-      from: "Portfolio Contact <onboarding@resend.dev>",
-      to: process.env.YOUR_EMAIL as string,
-      subject: subject || "New Contact Form Submission",
-      react: ContactFormEmailTemplate({
-        name,
-        email,
-        subject,
-        message,
-      }) as React.ReactElement,
+    // Create the document in Sanity
+    const result = await serverClient.create({
+      _type: "contact",
+      name,
+      email,
+      subject,
+      message,
+      submittedAt: new Date().toISOString(),
+      status: "new",
     });
-
-    if (error) {
-      console.error("Error sending email:", error);
-      return {
-        success: false,
-        error: "Failed to send message. Please try again.",
-      };
-    }
 
     return {
       success: true,
-      data,
+      data: result,
     };
   } catch (error) {
-    console.error("Error in submitContactForm:", error);
+    console.error("Error submitting contact form:", error);
     return {
       success: false,
-      error: "An unexpected error occurred. Please try again.",
+      error: "Failed to submit the form. Please try again later.",
     };
   }
 }

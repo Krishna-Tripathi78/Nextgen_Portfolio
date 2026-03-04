@@ -3,44 +3,34 @@
 import { useEffect, useState } from "react";
 
 export function usePortfolioCompletion() {
-  const [isCompleted, setIsCompleted] = useState(false);
-  const [showRating, setShowRating] = useState(false);
+    const [showRating, setShowRating] = useState(false);
 
-  useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
+    useEffect(() => {
+        // Check if user has already rated
+        const hasRated = localStorage.getItem("portfolio-rated");
+        if (hasRated) return;
 
-    const handleScroll = () => {
-      const scrollTop = window.pageYOffset;
-      const docHeight =
-        document.documentElement.scrollHeight - window.innerHeight;
-      const scrollPercent = (scrollTop / docHeight) * 100;
+        // Track scroll progress
+        const handleScroll = () => {
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollProgress = (window.scrollY / scrollHeight) * 100;
 
-      // Consider portfolio "completed" when user scrolls 85% through
-      if (scrollPercent >= 85 && !isCompleted) {
-        setIsCompleted(true);
+            // Show rating when user scrolls 80% of the page
+            if (scrollProgress > 80 && !hasRated) {
+                setShowRating(true);
+                // Remove listener after showing once
+                window.removeEventListener("scroll", handleScroll);
+            }
+        };
 
-        // Show rating form after 2 seconds delay
-        timeoutId = setTimeout(() => {
-          const hasRated = localStorage.getItem("portfolio-rated");
-          if (!hasRated) {
-            setShowRating(true);
-          }
-        }, 2000);
-      }
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
+    const closeRating = () => {
+        setShowRating(false);
+        localStorage.setItem("portfolio-rated", "true");
     };
 
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (timeoutId) clearTimeout(timeoutId);
-    };
-  }, [isCompleted]);
-
-  const closeRating = () => {
-    setShowRating(false);
-    localStorage.setItem("portfolio-rated", "true");
-  };
-
-  return { showRating, closeRating };
+    return { showRating, closeRating };
 }

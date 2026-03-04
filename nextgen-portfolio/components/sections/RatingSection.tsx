@@ -1,112 +1,88 @@
 "use client";
 
-import { IconStar, IconX } from "@tabler/icons-react";
 import { useState } from "react";
+import { X, Star } from "lucide-react";
 
-interface RatingFormProps {
-  isVisible: boolean;
-  onClose: () => void;
+interface RatingSectionProps {
+    isVisible: boolean;
+    onClose: () => void;
 }
 
-export function RatingSection({ isVisible, onClose }: RatingFormProps) {
-  const [rating, setRating] = useState(0);
-  const [hoveredRating, setHoveredRating] = useState(0);
-  const [feedback, setFeedback] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+export function RatingSection({ isVisible, onClose }: RatingSectionProps) {
+    const [rating, setRating] = useState(0);
+    const [hoveredRating, setHoveredRating] = useState(0);
+    const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (rating === 0) return;
+    if (!isVisible) return null;
 
-    setIsSubmitting(true);
+    const handleSubmit = () => {
+        if (rating > 0) {
+            setSubmitted(true);
+            setTimeout(() => {
+                onClose();
+            }, 2000);
+        }
+    };
 
-    // Simulate API call - replace with actual submission logic
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    setIsSubmitted(true);
-    setIsSubmitting(false);
-
-    // Auto close after 3 seconds
-    setTimeout(() => {
-      onClose();
-      setIsSubmitted(false);
-      setRating(0);
-      setFeedback("");
-    }, 3000);
-  };
-
-  if (!isVisible) return null;
-
-  return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4">
-      <div className="bg-zinc-900 border border-yellow-600/30 rounded-lg p-4 sm:p-6 w-full max-w-sm sm:max-w-md relative mx-auto">
-        <button
-          onClick={onClose}
-          className="absolute top-3 right-3 sm:top-4 sm:right-4 text-zinc-400 hover:text-white transition-colors p-1"
-        >
-          <IconX className="w-4 h-4 sm:w-5 sm:h-5" />
-        </button>
-
-        {!isSubmitted ? (
-          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
-            <div className="text-center pr-8">
-              <h3 className="text-lg sm:text-xl font-bold text-white mb-1 sm:mb-2">
-                Rate My Portfolio
-              </h3>
-              <p className="text-zinc-400 text-xs sm:text-sm">
-                Your feedback helps me improve!
-              </p>
-            </div>
-
-            <div className="flex justify-center space-x-1 py-2">
-              {[1, 2, 3, 4, 5].map((star) => (
+    return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
+            <div className="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4 animate-in slide-in-from-bottom-4 duration-300">
                 <button
-                  key={star}
-                  type="button"
-                  onClick={() => setRating(star)}
-                  onMouseEnter={() => setHoveredRating(star)}
-                  onMouseLeave={() => setHoveredRating(0)}
-                  className="p-1 transition-transform hover:scale-110 touch-manipulation"
+                    onClick={onClose}
+                    className="absolute top-4 right-4 p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+                    aria-label="Close"
                 >
-                  <IconStar
-                    className={`w-6 h-6 sm:w-8 sm:h-8 ${
-                      star <= (hoveredRating || rating)
-                        ? "fill-yellow-500 text-yellow-500"
-                        : "text-zinc-600"
-                    }`}
-                  />
+                    <X className="w-5 h-5" />
                 </button>
-              ))}
+
+                {!submitted ? (
+                    <>
+                        <h3 className="text-2xl font-bold mb-2 text-slate-900 dark:text-slate-100">
+                            Rate Your Experience
+                        </h3>
+                        <p className="text-slate-600 dark:text-slate-400 mb-6">
+                            How would you rate this portfolio?
+                        </p>
+
+                        <div className="flex justify-center gap-2 mb-6">
+                            {[1, 2, 3, 4, 5].map((star) => (
+                                <button
+                                    key={star}
+                                    onClick={() => setRating(star)}
+                                    onMouseEnter={() => setHoveredRating(star)}
+                                    onMouseLeave={() => setHoveredRating(0)}
+                                    className="p-2 transition-transform hover:scale-110"
+                                >
+                                    <Star
+                                        className={`w-10 h-10 transition-colors ${star <= (hoveredRating || rating)
+                                                ? "fill-yellow-400 text-yellow-400"
+                                                : "text-slate-300 dark:text-slate-600"
+                                            }`}
+                                    />
+                                </button>
+                            ))}
+                        </div>
+
+                        <button
+                            onClick={handleSubmit}
+                            disabled={rating === 0}
+                            className="w-full py-3 px-6 rounded-lg bg-primary text-primary-foreground font-semibold hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        >
+                            Submit Rating
+                        </button>
+                    </>
+                ) : (
+                    <div className="text-center py-8">
+                        <div className="mb-4 text-6xl">🎉</div>
+                        <h3 className="text-2xl font-bold mb-2 text-slate-900 dark:text-slate-100">
+                            Thank You!
+                        </h3>
+                        <p className="text-slate-600 dark:text-slate-400">
+                            Your feedback has been recorded.
+                        </p>
+                    </div>
+                )}
             </div>
-
-            <textarea
-              value={feedback}
-              onChange={(e) => setFeedback(e.target.value)}
-              placeholder="Any feedback or suggestions? (optional)"
-              className="w-full p-2 sm:p-3 bg-zinc-800 border border-zinc-700 rounded-md text-white placeholder-zinc-400 resize-none h-16 sm:h-20 text-xs sm:text-sm"
-            />
-
-            <button
-              type="submit"
-              disabled={rating === 0 || isSubmitting}
-              className="w-full py-2 sm:py-3 bg-yellow-600 hover:bg-yellow-500 disabled:bg-zinc-700 disabled:text-zinc-400 text-zinc-900 font-semibold rounded-md transition-colors text-sm sm:text-base"
-            >
-              {isSubmitting ? "Submitting..." : "Submit Rating"}
-            </button>
-          </form>
-        ) : (
-          <div className="text-center py-4 sm:py-8">
-            <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">🎉</div>
-            <h3 className="text-lg sm:text-xl font-bold text-white mb-1 sm:mb-2">
-              Thank You!
-            </h3>
-            <p className="text-zinc-400 text-sm">
-              Your feedback has been submitted successfully.
-            </p>
-          </div>
-        )}
-      </div>
-    </div>
-  );
+        </div>
+    );
 }

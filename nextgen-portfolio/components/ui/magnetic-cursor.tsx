@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
-import { useTheme } from "../ThemeProvider";
+import { useTheme } from "next-themes";
 
 export function MagneticCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
@@ -58,15 +58,13 @@ export function MagneticCursor() {
     <>
       <div
         ref={cursorRef}
-        className={`fixed top-0 left-0 w-8 h-8 border-2 rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 hidden md:block ${
-          isDark ? "border-purple-500/50" : "border-purple-600/60"
-        }`}
+        className={`fixed top-0 left-0 w-8 h-8 border-2 rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 hidden md:block ${isDark ? "border-purple-500/50" : "border-purple-600/60"
+          }`}
       />
       <div
         ref={cursorDotRef}
-        className={`fixed top-0 left-0 w-2 h-2 rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 hidden md:block ${
-          isDark ? "bg-pink-500" : "bg-purple-600"
-        }`}
+        className={`fixed top-0 left-0 w-2 h-2 rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 hidden md:block ${isDark ? "bg-pink-500" : "bg-purple-600"
+          }`}
       />
     </>
   );

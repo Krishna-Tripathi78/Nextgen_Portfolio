@@ -1,15 +1,7 @@
-import {
-  Github,
-  Globe,
-  Linkedin,
-  Mail,
-  MapPin,
-  Phone,
-  Twitter,
-} from "lucide-react";
 import Link from "next/link";
 import { defineQuery } from "next-sanity";
-import WorldMapDemo from "@/components/ui/world-map-demo";
+import { Mail, Phone, MapPin } from "lucide-react";
+import WorldMapDemo from "@/components/world-map-demo";
 import { sanityFetch } from "@/sanity/lib/live";
 import { ContactForm } from "./ContactForm";
 
@@ -113,9 +105,8 @@ export async function ContactSection() {
                         href={profile.socialLinks.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-3 py-1.5 @md/info:px-4 @md/info:py-2 rounded-lg border hover:bg-accent transition-colors text-xs @md/info:text-sm"
+                        className="px-3 py-1.5 @md/info:px-4 @md/info:py-2 rounded-lg border hover:bg-accent transition-colors text-xs @md/info:text-sm"
                       >
-                        <Github className="w-4 h-4" />
                         GitHub
                       </Link>
                     )}
@@ -124,9 +115,8 @@ export async function ContactSection() {
                         href={profile.socialLinks.linkedin}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-3 py-1.5 @md/info:px-4 @md/info:py-2 rounded-lg border hover:bg-accent transition-colors text-xs @md/info:text-sm"
+                        className="px-3 py-1.5 @md/info:px-4 @md/info:py-2 rounded-lg border hover:bg-accent transition-colors text-xs @md/info:text-sm"
                       >
-                        <Linkedin className="w-4 h-4" />
                         LinkedIn
                       </Link>
                     )}
@@ -135,9 +125,8 @@ export async function ContactSection() {
                         href={profile.socialLinks.twitter}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-3 py-1.5 @md/info:px-4 @md/info:py-2 rounded-lg border hover:bg-accent transition-colors text-xs @md/info:text-sm"
+                        className="px-3 py-1.5 @md/info:px-4 @md/info:py-2 rounded-lg border hover:bg-accent transition-colors text-xs @md/info:text-sm"
                       >
-                        <Twitter className="w-4 h-4" />
                         Twitter
                       </Link>
                     )}
@@ -146,10 +135,19 @@ export async function ContactSection() {
                         href={profile.socialLinks.website}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-3 py-1.5 @md/info:px-4 @md/info:py-2 rounded-lg border hover:bg-accent transition-colors text-xs @md/info:text-sm"
+                        className="px-3 py-1.5 @md/info:px-4 @md/info:py-2 rounded-lg border hover:bg-accent transition-colors text-xs @md/info:text-sm"
                       >
-                        <Globe className="w-4 h-4" />
                         Website
+                      </Link>
+                    )}
+                    {profile.socialLinks.medium && (
+                      <Link
+                        href={profile.socialLinks.medium}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-3 py-1.5 @md/info:px-4 @md/info:py-2 rounded-lg border hover:bg-accent transition-colors text-xs @md/info:text-sm"
+                      >
+                        Medium
                       </Link>
                     )}
                     {profile.socialLinks.youtube && (

@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useTheme } from "../ThemeProvider";
+import { useTheme } from "next-themes";
 
 export function SpotlightCursor() {
   const [position, setPosition] = useState({ x: 0, y: 0 });

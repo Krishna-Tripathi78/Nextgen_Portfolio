@@ -165,24 +165,22 @@ export async function CertificationsSection() {
                         {cert.skills && cert.skills.length > 0 && (
                           <div className="mb-4">
                             <div className="flex flex-wrap justify-center gap-1.5">
-                              {cert.skills
-                                .slice(0, 4)
-                                .map((skill: any, idx: number) => {
-                                  const skillData =
-                                    skill &&
+                              {cert.skills.slice(0, 4).map((skill: any, idx: number) => {
+                                const skillData =
+                                  skill &&
                                     typeof skill === "object" &&
                                     "name" in skill
-                                      ? skill
-                                      : null;
-                                  return skillData?.name ? (
-                                    <span
-                                      key={`${cert.name}-skill-${idx}`}
-                                      className="px-2.5 py-1 text-[10px] bg-yellow-600/20 text-yellow-500 font-medium border border-yellow-600/30"
-                                    >
-                                      {skillData.name}
-                                    </span>
-                                  ) : null;
-                                })}
+                                    ? skill
+                                    : null;
+                                return skillData?.name ? (
+                                  <span
+                                    key={`${cert.name}-skill-${idx}`}
+                                    className="px-2.5 py-1 text-[10px] bg-yellow-600/20 text-yellow-500 font-medium border border-yellow-600/30"
+                                  >
+                                    {skillData.name}
+                                  </span>
+                                ) : null;
+                              })}
                             </div>
                           </div>
                         )}

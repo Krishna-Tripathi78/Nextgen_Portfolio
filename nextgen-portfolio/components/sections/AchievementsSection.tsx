@@ -2,7 +2,6 @@ import { IconExternalLink, IconStar } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
 import { defineQuery } from "next-sanity";
-import { TiltCard } from "@/components/ui/tilt-card";
 import { urlFor } from "@/sanity/lib/image";
 import { sanityFetch } from "@/sanity/lib/live";
 
@@ -91,66 +90,67 @@ export async function AchievementsSection() {
             <div className="@container">
               <div className="grid grid-cols-1 @3xl:grid-cols-2 gap-6">
                 {featured.map((achievement: any) => (
-                  <TiltCard key={`${achievement.title}-${achievement.date}`}>
-                    <div className="@container/card bg-card border-2 border-primary/20 rounded-lg p-6 hover:shadow-lg transition-all h-full">
-                      {achievement.image && (
-                        <div className="relative w-full h-32 @md/card:h-48 mb-4 rounded-lg overflow-hidden">
-                          <Image
-                            src={urlFor(achievement.image)
-                              .width(400)
-                              .height(200)
-                              .url()}
-                            alt={achievement.title || "Achievement"}
-                            fill
-                            className="object-cover"
-                          />
-                        </div>
-                      )}
-
-                      <div className="flex flex-col @xs/card:flex-row @xs/card:items-center gap-2 mb-3">
-                        {achievement.type && (
-                          <span
-                            className={`px-2.5 py-1 text-xs rounded-full font-medium ${getTypeColor(
-                              achievement.type,
-                            )}`}
-                          >
-                            {getTypeLabel(achievement.type)}
-                          </span>
-                        )}
-                        {achievement.date && (
-                          <span className="text-xs @md/card:text-sm text-muted-foreground">
-                            {formatDate(achievement.date)}
-                          </span>
-                        )}
+                  <div
+                    key={`${achievement.title}-${achievement.date}`}
+                    className="@container/card bg-card border-2 border-primary/20 rounded-lg p-6 hover:shadow-lg transition-all hover:scale-[1.02]"
+                  >
+                    {achievement.image && (
+                      <div className="relative w-full h-32 @md/card:h-48 mb-4 rounded-lg overflow-hidden">
+                        <Image
+                          src={urlFor(achievement.image)
+                            .width(400)
+                            .height(200)
+                            .url()}
+                          alt={achievement.title || "Achievement"}
+                          fill
+                          className="object-cover"
+                        />
                       </div>
+                    )}
 
-                      <h4 className="text-lg @md/card:text-xl font-semibold mb-2">
-                        {achievement.title}
-                      </h4>
-                      {achievement.issuer && (
-                        <p className="text-primary font-medium mb-3 text-sm @md/card:text-base truncate">
-                          {achievement.issuer}
-                        </p>
-                      )}
-                      {achievement.description && (
-                        <p className="text-muted-foreground mb-4 text-sm @md/card:text-base line-clamp-3">
-                          {achievement.description}
-                        </p>
-                      )}
-
-                      {achievement.url && (
-                        <Link
-                          href={achievement.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 text-xs @md/card:text-sm text-primary hover:underline"
+                    <div className="flex flex-col @xs/card:flex-row @xs/card:items-center gap-2 mb-3">
+                      {achievement.type && (
+                        <span
+                          className={`px-2.5 py-1 text-xs rounded-full font-medium ${getTypeColor(
+                            achievement.type,
+                          )}`}
                         >
-                          Learn More
-                          <IconExternalLink className="w-3.5 h-3.5 @md/card:w-4 @md/card:h-4" />
-                        </Link>
+                          {getTypeLabel(achievement.type)}
+                        </span>
+                      )}
+                      {achievement.date && (
+                        <span className="text-xs @md/card:text-sm text-muted-foreground">
+                          {formatDate(achievement.date)}
+                        </span>
                       )}
                     </div>
-                  </TiltCard>
+
+                    <h4 className="text-lg @md/card:text-xl font-semibold mb-2">
+                      {achievement.title}
+                    </h4>
+                    {achievement.issuer && (
+                      <p className="text-primary font-medium mb-3 text-sm @md/card:text-base truncate">
+                        {achievement.issuer}
+                      </p>
+                    )}
+                    {achievement.description && (
+                      <p className="text-muted-foreground mb-4 text-sm @md/card:text-base line-clamp-3">
+                        {achievement.description}
+                      </p>
+                    )}
+
+                    {achievement.url && (
+                      <Link
+                        href={achievement.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-xs @md/card:text-sm text-primary hover:underline"
+                      >
+                        Learn More
+                        <IconExternalLink className="w-3.5 h-3.5 @md/card:w-4 @md/card:h-4" />
+                      </Link>
+                    )}
+                  </div>
                 ))}
               </div>
             </div>
@@ -168,10 +168,10 @@ export async function AchievementsSection() {
                 {regular.map((achievement: any) => (
                   <div
                     key={`${achievement.title}-${achievement.date}`}
-                    className="@container/card bg-card border rounded-lg p-6 hover:shadow-lg transition-all hover:scale-105 flex flex-col h-full"
+                    className="@container/card bg-card border rounded-lg p-6 hover:shadow-lg transition-all hover:scale-105 flex flex-col"
                   >
                     {achievement.image && (
-                      <div className="relative w-full h-24 @md/card:h-32 mb-4 rounded-lg overflow-hidden flex-shrink-0">
+                      <div className="relative w-full h-24 @md/card:h-32 mb-4 rounded-lg overflow-hidden">
                         <Image
                           src={urlFor(achievement.image)
                             .width(300)
