@@ -9,8 +9,14 @@ import {
   ProjectsSection,
   SkillsSection
 } from "@/components/sections";
+import { AchievementPopup } from "@/components/AchievementPopup";
+import { serverClient } from "@/sanity/lib/serverClient";
 
 async function PortfolioContent() {
+  const achievements = await serverClient.fetch(
+    `*[_type == "achievement"] | order(date desc) [0]`
+  );
+
   return (
     <>
       <HeroSection />
@@ -22,6 +28,7 @@ async function PortfolioContent() {
       <CertificationsSection />
       <AchievementsSection />
       <ContactSection />
+      {achievements && <AchievementPopup achievement={achievements} />}
     </>
   );
 }
