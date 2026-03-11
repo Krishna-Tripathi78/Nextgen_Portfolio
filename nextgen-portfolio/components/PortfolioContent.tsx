@@ -9,6 +9,7 @@ import {
   ProjectsSection,
   SkillsSection
 } from "@/components/sections";
+import { Footer } from "@/components/sections/Footer";
 import { AchievementPopup } from "@/components/AchievementPopup";
 import { serverClient } from "@/sanity/lib/serverClient";
 
@@ -28,6 +29,7 @@ async function PortfolioContent() {
       <CertificationsSection />
       <AchievementsSection />
       <ContactSection />
+      <Footer />
       {achievements && <AchievementPopup achievement={achievements} />}
     </>
   );

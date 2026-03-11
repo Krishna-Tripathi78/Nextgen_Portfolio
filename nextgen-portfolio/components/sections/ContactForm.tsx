@@ -38,27 +38,33 @@ export function ContactForm() {
   };
 
   return (
-    <div className="@container/form bg-card border rounded-lg p-4 @md/form:p-6">
-      <h3 className="text-xl @md/form:text-2xl font-semibold mb-6">
-        Send a Message
-      </h3>
+    <div className="@container/form group relative bg-card border border-border hover:border-purple-500/30 rounded-xl p-6 hover:shadow-[0_8px_30px_rgba(168,85,247,0.12)] transition-all duration-300 overflow-hidden">
+      {/* Top gradient accent bar */}
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      {/* Shimmer on hover */}
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none bg-[radial-gradient(ellipse_at_top_left,rgba(168,85,247,0.04),transparent_60%)]" />
+      
+      <div className="relative z-10">
+        <h3 className="text-2xl font-semibold mb-6 group-hover:text-purple-400 transition-colors">
+          Send a Message
+        </h3>
 
       {status.type && (
         <div
-          className={`mb-4 p-3 rounded-lg text-sm ${status.type === "success"
-              ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300"
-              : "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300"
+          className={`mb-4 p-3 rounded-lg text-sm relative z-10 ${status.type === "success"
+              ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 border border-green-500/20"
+              : "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300 border border-red-500/20"
             }`}
         >
           {status.message}
         </div>
       )}
 
-      <form className="space-y-3 @md/form:space-y-4" onSubmit={handleSubmit}>
+      <form className="space-y-4 relative z-10" onSubmit={handleSubmit}>
         <div>
           <label
             htmlFor="name"
-            className="block text-xs @md/form:text-sm font-medium mb-2"
+            className="block text-sm font-medium mb-2"
           >
             Name
           </label>
@@ -66,7 +72,7 @@ export function ContactForm() {
             type="text"
             id="name"
             name="name"
-            className="w-full px-3 py-1.5 @md/form:px-4 @md/form:py-2 rounded-lg border bg-background focus:outline-none focus:ring-2 focus:ring-primary text-sm @md/form:text-base"
+            className="w-full px-4 py-2.5 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all text-base hover:border-purple-500/30"
             placeholder="Your name"
             required
             disabled={isPending}
@@ -76,7 +82,7 @@ export function ContactForm() {
         <div>
           <label
             htmlFor="email"
-            className="block text-xs @md/form:text-sm font-medium mb-2"
+            className="block text-sm font-medium mb-2"
           >
             Email
           </label>
@@ -84,7 +90,7 @@ export function ContactForm() {
             type="email"
             id="email"
             name="email"
-            className="w-full px-3 py-1.5 @md/form:px-4 @md/form:py-2 rounded-lg border bg-background focus:outline-none focus:ring-2 focus:ring-primary text-sm @md/form:text-base"
+            className="w-full px-4 py-2.5 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all text-base hover:border-purple-500/30"
             placeholder="your.email@example.com"
             required
             disabled={isPending}
@@ -94,7 +100,7 @@ export function ContactForm() {
         <div>
           <label
             htmlFor="subject"
-            className="block text-xs @md/form:text-sm font-medium mb-2"
+            className="block text-sm font-medium mb-2"
           >
             Subject
           </label>
@@ -102,7 +108,7 @@ export function ContactForm() {
             type="text"
             id="subject"
             name="subject"
-            className="w-full px-3 py-1.5 @md/form:px-4 @md/form:py-2 rounded-lg border bg-background focus:outline-none focus:ring-2 focus:ring-primary text-sm @md/form:text-base"
+            className="w-full px-4 py-2.5 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all text-base hover:border-purple-500/30"
             placeholder="What's this about?"
             required
             disabled={isPending}
@@ -112,7 +118,7 @@ export function ContactForm() {
         <div>
           <label
             htmlFor="message"
-            className="block text-xs @md/form:text-sm font-medium mb-2"
+            className="block text-sm font-medium mb-2"
           >
             Message
           </label>
@@ -120,7 +126,7 @@ export function ContactForm() {
             id="message"
             name="message"
             rows={5}
-            className="w-full px-3 py-1.5 @md/form:px-4 @md/form:py-2 rounded-lg border bg-background focus:outline-none focus:ring-2 focus:ring-primary resize-none text-sm @md/form:text-base"
+            className="w-full px-4 py-2.5 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 resize-none transition-all text-base hover:border-purple-500/30"
             placeholder="Tell me about your project..."
             required
             disabled={isPending}
@@ -130,11 +136,12 @@ export function ContactForm() {
         <button
           type="submit"
           disabled={isPending}
-          className="w-full px-4 py-2 @md/form:px-6 @md/form:py-3 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-medium text-sm @md/form:text-base disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full px-6 py-3 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:from-purple-600 hover:to-pink-600 transition-all duration-300 font-medium text-base disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-[0_4px_20px_rgba(168,85,247,0.4)] transform hover:scale-[1.02]"
         >
           {isPending ? "Sending..." : "Send Message"}
         </button>
       </form>
+      </div>
     </div>
   );
 }

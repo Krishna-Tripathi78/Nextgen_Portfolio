@@ -7,3 +7,4 @@ export { ExperienceSection } from "./ExperienceSection";
 export { HeroSection } from "./HeroSection";
 export { ProjectsSection } from "./ProjectsSection";
 export { SkillsSection } from "./SkillsSection";
+export { Footer } from "./Footer";

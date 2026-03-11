@@ -160,10 +160,12 @@ export async function AchievementsSection() {
           <div>
             {featured.length > 0 && (
               <h3 className="text-2xl font-bold mb-6 flex items-center gap-3">
-                <span className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                <span className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shadow-lg">
                   <IconTrophy className="w-4 h-4 text-white" />
                 </span>
-                All Achievements
+                <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                  All Achievements
+                </span>
               </h3>
             )}
             <div className="@container">
@@ -171,10 +173,12 @@ export async function AchievementsSection() {
                 {regular.map((achievement: any) => (
                   <div
                     key={`${achievement.title}-${achievement.date}`}
-                    className="@container/card group relative bg-card border border-border hover:border-purple-500/30 rounded-xl p-6 hover:shadow-[0_8px_30px_rgba(168,85,247,0.12)] transition-all duration-300 flex flex-col overflow-hidden glow-border"
+                    className="@container/card group relative bg-card border border-border hover:border-purple-500/50 rounded-xl p-6 hover:shadow-[0_8px_40px_rgba(168,85,247,0.2)] transition-all duration-300 flex flex-col overflow-hidden"
                   >
                     {/* Top accent bar */}
-                    <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-purple-500 to-pink-500 opacity-0 group-hover:opacity-80 transition-opacity" />
+                    <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    {/* Shimmer on hover */}
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none bg-[radial-gradient(ellipse_at_top_left,rgba(168,85,247,0.06),transparent_60%)]" />
 
                     {achievement.image && (
                       <div className="relative w-full h-24 @md/card:h-32 mb-4 rounded-xl overflow-hidden">
@@ -188,7 +192,7 @@ export async function AchievementsSection() {
                       </div>
                     )}
 
-                    <div className="flex-1">
+                    <div className="flex-1 relative z-10">
                       <div className="flex items-center gap-2 mb-3">
                         {achievement.type && (
                           <span className={`px-2 py-0.5 @md/card:py-1 text-xs rounded-full font-semibold border ${getTypeColor(achievement.type)}`}>
@@ -221,10 +225,10 @@ export async function AchievementsSection() {
                         href={achievement.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-xs @md/card:text-sm text-purple-400 hover:text-pink-400 hover:underline mt-4 pt-4 border-t border-border/50 font-medium transition-colors"
+                        className="relative z-10 inline-flex items-center gap-2 text-xs @md/card:text-sm text-purple-400 hover:text-pink-400 hover:underline mt-4 pt-4 border-t border-border/50 font-medium transition-colors group-hover:gap-3"
                       >
                         Learn More
-                        <IconExternalLink className="w-3.5 h-3.5 @md/card:w-4 @md/card:h-4" />
+                        <IconExternalLink className="w-3.5 h-3.5 @md/card:w-4 @md/card:h-4 transition-transform group-hover:translate-x-0.5" />
                       </Link>
                     )}
                   </div>
