@@ -36,10 +36,14 @@ export async function ExperienceSection() {
   };
 
   return (
-    <section id="experience" className="py-20 px-6">
-      <div className="container mx-auto max-w-6xl">
+    <section id="experience" className="py-20 px-6 relative overflow-hidden">
+      {/* Background orbs */}
+      <div className="absolute top-1/4 right-0 w-80 h-80 bg-purple-500/5 dark:bg-purple-500/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-64 h-64 bg-pink-500/5 dark:bg-pink-500/10 rounded-full blur-[80px] pointer-events-none" />
+
+      <div className="container mx-auto max-w-6xl relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 gradient-heading">
             Work Experience
           </h2>
           <p className="text-xl text-muted-foreground">
@@ -48,18 +52,29 @@ export async function ExperienceSection() {
         </div>
 
         <div className="space-y-8">
-          {experiences.map((exp: any) => (
+          {experiences.map((exp: any, expIdx: number) => (
             <div
               key={`${exp.company}-${exp.position}-${exp.startDate}`}
-              className="relative pl-8 pb-8 border-l-2 border-muted last:border-l-0"
+              className="relative pl-8 pb-8 last:pb-0"
             >
-              {/* Timeline dot */}
-              <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-primary border-4 border-background" />
+              {/* Gradient timeline line */}
+              <div className="absolute left-0 top-4 bottom-0 w-[2px] bg-gradient-to-b from-purple-500 via-pink-500/50 to-transparent last:hidden" />
 
-              <div className="@container/card bg-card border rounded-lg p-4 @md/card:p-6 hover:shadow-lg transition-shadow">
+              {/* Glowing timeline dot */}
+              <div
+                className="absolute left-[-7px] top-3 w-3.5 h-3.5 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 border-2 border-background"
+                style={{ animation: "timeline-glow 3s ease-in-out infinite", animationDelay: `${expIdx * 0.5}s` }}
+              />
+
+              <div className="@container/card group relative bg-card border border-border hover:border-purple-500/30 rounded-xl p-4 @md/card:p-6 hover:shadow-[0_8px_30px_rgba(168,85,247,0.12)] transition-all duration-300 overflow-hidden">
+                {/* Top gradient accent bar */}
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                {/* Shimmer on hover */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none bg-[radial-gradient(ellipse_at_top_left,rgba(168,85,247,0.04),transparent_60%)]" />
+
                 <div className="flex flex-col @md/card:flex-row @md/card:items-start gap-4 mb-4">
                   {exp.companyLogo && (
-                    <div className="relative w-12 h-12 @md/card:w-16 @md/card:h-16 rounded-lg overflow-hidden border shrink-0">
+                    <div className="relative w-12 h-12 @md/card:w-16 @md/card:h-16 rounded-xl overflow-hidden border border-purple-500/20 shrink-0 group-hover:border-purple-500/40 transition-colors">
                       <Image
                         src={urlFor(exp.companyLogo).width(64).height(64).url()}
                         alt={`${exp.company} company logo`}
@@ -70,17 +85,17 @@ export async function ExperienceSection() {
                   )}
 
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-xl @md/card:text-2xl font-semibold line-clamp-2">
+                    <h3 className="text-xl @md/card:text-2xl font-semibold line-clamp-2 group-hover:text-purple-400 transition-colors">
                       {exp.position}
                     </h3>
                     <div className="flex flex-wrap items-center gap-2 mt-1">
-                      <p className="text-base @md/card:text-lg text-primary font-medium truncate">
+                      <p className="text-base @md/card:text-lg font-medium bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent truncate">
                         {exp.company}
                       </p>
                       {exp.employmentType && (
                         <>
                           <span className="text-muted-foreground">•</span>
-                          <span className="text-xs @md/card:text-sm text-muted-foreground">
+                          <span className="text-xs @md/card:text-sm text-muted-foreground px-2 py-0.5 rounded-full bg-muted">
                             {exp.employmentType}
                           </span>
                         </>
@@ -88,9 +103,9 @@ export async function ExperienceSection() {
                     </div>
                     <div className="flex flex-wrap items-center gap-2 mt-2 text-xs @md/card:text-sm text-muted-foreground">
                       <span>
-                        {exp.startDate && formatDate(exp.startDate)} -{" "}
+                        {exp.startDate && formatDate(exp.startDate)} –{" "}
                         {exp.current
-                          ? "Present"
+                          ? <span className="text-green-400 font-medium">Present</span>
                           : exp.endDate
                             ? formatDate(exp.endDate)
                             : "N/A"}
@@ -113,12 +128,16 @@ export async function ExperienceSection() {
 
                 {exp.responsibilities && exp.responsibilities.length > 0 && (
                   <div className="mb-4">
-                    <h4 className="font-semibold mb-2 text-sm @md/card:text-base">
-                      Key Responsibilities:
+                    <h4 className="font-semibold mb-2 text-sm @md/card:text-base flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 inline-block" />
+                      Key Responsibilities
                     </h4>
-                    <ul className="list-disc list-inside space-y-1 text-muted-foreground text-xs @md/card:text-sm">
+                    <ul className="space-y-1 text-muted-foreground text-xs @md/card:text-sm">
                       {exp.responsibilities.map((resp: any, idx: number) => (
-                        <li key={`${exp.company}-resp-${idx}`}>{resp}</li>
+                        <li key={`${exp.company}-resp-${idx}`} className="flex items-start gap-2">
+                          <span className="text-purple-400 mt-0.5 flex-shrink-0">▸</span>
+                          <span>{resp}</span>
+                        </li>
                       ))}
                     </ul>
                   </div>
@@ -126,13 +145,15 @@ export async function ExperienceSection() {
 
                 {exp.achievements && exp.achievements.length > 0 && (
                   <div className="mb-4">
-                    <h4 className="font-semibold mb-2 text-sm @md/card:text-base">
-                      Achievements:
+                    <h4 className="font-semibold mb-2 text-sm @md/card:text-base flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-pink-500 to-orange-500 inline-block" />
+                      Achievements
                     </h4>
-                    <ul className="list-disc list-inside space-y-1 text-muted-foreground text-xs @md/card:text-sm">
+                    <ul className="space-y-1 text-muted-foreground text-xs @md/card:text-sm">
                       {exp.achievements.map((achievement: any, idx: number) => (
-                        <li key={`${exp.company}-achievement-${idx}`}>
-                          {achievement}
+                        <li key={`${exp.company}-achievement-${idx}`} className="flex items-start gap-2">
+                          <span className="text-pink-400 mt-0.5 flex-shrink-0">✦</span>
+                          <span>{achievement}</span>
                         </li>
                       ))}
                     </ul>
@@ -140,7 +161,7 @@ export async function ExperienceSection() {
                 )}
 
                 {exp.technologies && exp.technologies.length > 0 && (
-                  <div className="flex flex-wrap gap-1.5 @md/card:gap-2 mt-4">
+                  <div className="flex flex-wrap gap-1.5 @md/card:gap-2 mt-4 pt-4 border-t border-border/50">
                     {exp.technologies.map((tech: any, techIdx: number) => {
                       const techData =
                         tech && typeof tech === "object" && "name" in tech
@@ -149,7 +170,7 @@ export async function ExperienceSection() {
                       return techData?.name ? (
                         <span
                           key={`${exp.company}-tech-${techIdx}`}
-                          className="px-2 py-0.5 @md/card:px-3 @md/card:py-1 text-xs rounded-full bg-primary/10 text-primary"
+                          className="px-2 py-0.5 @md/card:px-3 @md/card:py-1 text-xs rounded-full bg-gradient-to-r from-purple-500/10 to-pink-500/10 text-purple-400 border border-purple-500/20 font-medium"
                         >
                           {techData.name}
                         </span>

@@ -22,10 +22,14 @@ export async function AboutSection() {
   }
 
   return (
-    <section id="about" className="py-20 px-6">
-      <div className="container mx-auto max-w-4xl">
+    <section id="about" className="py-20 px-6 relative overflow-hidden">
+      {/* Background orbs */}
+      <div className="absolute top-0 right-0 w-72 h-72 bg-purple-500/5 dark:bg-purple-500/10 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-64 h-64 bg-pink-500/5 dark:bg-pink-500/10 rounded-full blur-[80px] pointer-events-none" />
+
+      <div className="container mx-auto max-w-4xl relative z-10">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">About Me</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 gradient-heading">About Me</h2>
           <p className="text-xl text-muted-foreground">Get to know me better</p>
         </div>
 
@@ -49,7 +53,7 @@ export async function AboutSection() {
                     </h3>
                   ),
                   blockquote: ({ children }) => (
-                    <blockquote className="border-l-4 border-primary pl-4 italic my-4">
+                    <blockquote className="relative border-l-4 border-transparent pl-4 italic my-4 before:absolute before:left-0 before:top-0 before:bottom-0 before:w-1 before:rounded-full before:bg-gradient-to-b before:from-purple-500 before:to-pink-500">
                       {children}
                     </blockquote>
                   ),
@@ -69,7 +73,7 @@ export async function AboutSection() {
                         href={href}
                         target={isExternal ? "_blank" : undefined}
                         rel={isExternal ? "noopener noreferrer" : undefined}
-                        className="text-primary hover:underline"
+                        className="text-purple-500 hover:text-pink-500 transition-colors hover:underline"
                       >
                         {children}
                       </Link>
@@ -95,17 +99,20 @@ export async function AboutSection() {
 
         {/* Stats from CMS */}
         {profile.stats && profile.stats.length > 0 && (
-          <div className="@container mt-12 pt-12 border-t">
+          <div className="@container mt-12 pt-12 border-t border-purple-500/10">
             <div className="grid grid-cols-2 @lg:grid-cols-4 gap-6">
               {profile.stats.map((stat: any, idx: number) => (
                 <div
                   key={`${stat.label}-${idx}`}
-                  className="@container/stat text-center"
+                  className="group relative @container/stat text-center p-6 rounded-xl border border-purple-500/10 hover:border-purple-500/30 bg-gradient-to-br from-purple-500/5 to-pink-500/5 hover:from-purple-500/10 hover:to-pink-500/10 transition-all duration-300 glow-border"
+                  style={{ ["--i" as string]: idx }}
                 >
-                  <div className="text-3xl @md/stat:text-4xl font-bold text-primary mb-2">
+                  {/* Top accent bar */}
+                  <div className="absolute top-0 left-4 right-4 h-[2px] rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 opacity-60 group-hover:opacity-100 transition-opacity" />
+                  <div className="text-3xl @md/stat:text-4xl font-bold mb-2 gradient-heading">
                     {stat.value}
                   </div>
-                  <div className="text-xs @md/stat:text-sm text-muted-foreground">
+                  <div className="text-xs @md/stat:text-sm text-muted-foreground font-medium">
                     {stat.label}
                   </div>
                 </div>

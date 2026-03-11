@@ -40,25 +40,13 @@ export async function EducationSection() {
       id="education"
       className="relative py-20 px-6 bg-muted/30 overflow-hidden"
     >
-      {/* Section-wide Dotted Glow Background */}
-      {/* <DottedGlowBackground
-        className="pointer-events-none opacity-30 dark:opacity-50 mask-radial-to-75% mask-radial-at-bottom"
-        opacity={0.5}
-        gap={10}
-        radius={3.5}
-        colorLightVar="--color-neutral-400"
-        glowColorLightVar="--color-primary"
-        colorDarkVar="--color-neutral-600"
-        glowColorDarkVar="--color-primary"
-        backgroundOpacity={0}
-        speedMin={0.2}
-        speedMax={0.8}
-        speedScale={1.2}
-      /> */}
+      {/* Background orbs */}
+      <div className="absolute top-0 left-0 w-80 h-80 bg-purple-500/5 dark:bg-purple-500/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-72 h-72 bg-pink-500/5 dark:bg-pink-500/10 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="container mx-auto max-w-6xl relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Education</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 gradient-heading">Education</h2>
           <p className="text-xl text-muted-foreground">
             My academic background
           </p>
@@ -68,10 +56,10 @@ export async function EducationSection() {
           {education.map((edu: any) => (
             <div
               key={`${edu.institution}-${edu.degree}-${edu.startDate}`}
-              className="group relative bg-card border rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300"
+              className="group relative bg-card border border-border hover:border-purple-500/30 rounded-xl overflow-hidden hover:shadow-[0_8px_30px_rgba(168,85,247,0.12)] transition-all duration-300 glow-border"
             >
-              {/* Accent gradient bar */}
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-primary/60 to-primary/30 z-10" />
+              {/* Vivid accent gradient bar */}
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 z-10 opacity-70 group-hover:opacity-100 transition-opacity" />
 
               <div className="relative z-10 p-6">
                 {/* Header with logo and basic info */}
@@ -88,10 +76,10 @@ export async function EducationSection() {
                   )}
 
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-xl font-bold mb-1 line-clamp-2 group-hover:text-primary transition-colors">
+                    <h3 className="text-xl font-bold mb-1 line-clamp-2 group-hover:text-purple-400 transition-colors">
                       {edu.degree}
                     </h3>
-                    <p className="text-lg font-medium text-primary mb-1">
+                    <p className="text-lg font-medium mb-1 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
                       {edu.institution}
                     </p>
                     {edu.fieldOfStudy && (
@@ -116,9 +104,9 @@ export async function EducationSection() {
                     </span>
                   </div>
                   {edu.gpa && (
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium">
-                      <IconAward className="w-3.5 h-3.5" />
-                      <span>GPA: {edu.gpa}</span>
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 text-sm font-semibold">
+                      <IconAward className="w-3.5 h-3.5 text-purple-400" />
+                      <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">GPA: {edu.gpa}</span>
                     </div>
                   )}
                 </div>

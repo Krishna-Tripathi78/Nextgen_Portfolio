@@ -45,11 +45,15 @@ export async function CertificationsSection() {
   return (
     <section
       id="certifications"
-      className="py-20 px-6 bg-gradient-to-b from-background via-muted/20 to-background"
+      className="py-20 px-6 relative overflow-hidden"
     >
-      <div className="container mx-auto max-w-6xl">
+      {/* Background orbs */}
+      <div className="absolute top-1/4 left-0 w-80 h-80 bg-purple-500/5 dark:bg-purple-500/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-72 h-72 bg-pink-500/5 dark:bg-pink-500/10 rounded-full blur-[100px] pointer-events-none" />
+
+      <div className="container mx-auto max-w-6xl relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 gradient-heading">
             Certifications
           </h2>
           <p className="text-xl text-muted-foreground">
@@ -64,17 +68,19 @@ export async function CertificationsSection() {
                 key={`${cert.issuer}-${cert.name}-${cert.issueDate}`}
                 rotateDepth={8}
                 translateDepth={10}
-                className="w-full"
+                className="w-full group"
               >
                 {/* Outer Frame - Light Matting */}
                 <div
-                  className="relative bg-card border-8 border-card/80 rounded-sm shadow-2xl p-4"
+                  className="relative bg-card border-8 border-card/80 rounded-sm shadow-2xl group-hover:shadow-[0_8px_40px_rgba(234,179,8,0.15)] p-4 transition-all duration-300"
                   style={{
                     transformStyle: "preserve-3d",
                   }}
                 >
                   {/* Inner Certificate - Dark Background */}
-                  <div className="relative bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-950 dark:from-zinc-950 dark:via-black dark:to-zinc-950 border-2 border-yellow-600/40 p-8 flex flex-col min-h-[450px]">
+                  <div className="relative bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-950 dark:from-zinc-950 dark:via-black dark:to-zinc-950 border-2 border-yellow-600/40 group-hover:border-yellow-600/60 p-8 flex flex-col min-h-[450px] transition-all duration-300">
+                    {/* Top accent bar */}
+                    <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-500 opacity-70 group-hover:opacity-100 transition-opacity" />
                     {/* Decorative Corner Frames - Top Left */}
                     <div className="absolute top-0 left-0 w-20 h-20">
                       <div className="absolute top-3 left-3 w-10 h-10 border-t-2 border-l-2 border-yellow-600/60" />
@@ -122,7 +128,7 @@ export async function CertificationsSection() {
                       </div>
 
                       {/* Certificate Name - Main Subject */}
-                      <h3 className="text-3xl font-bold text-white mb-6 leading-tight px-4">
+                      <h3 className="text-3xl font-bold mb-6 leading-tight px-4 group-hover:text-yellow-400 transition-colors">
                         {cert.name}
                       </h3>
 
@@ -154,7 +160,7 @@ export async function CertificationsSection() {
 
                       {/* Issued By */}
                       <div className="mb-4">
-                        <p className="text-lg font-semibold text-white">
+                        <p className="text-lg font-semibold bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent group-hover:from-yellow-300 group-hover:to-orange-300 transition-all">
                           {cert.issuer}
                         </p>
                       </div>

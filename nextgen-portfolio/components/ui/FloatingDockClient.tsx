@@ -1,7 +1,7 @@
 "use client";
 
-import { useClerk, useUser } from "@clerk/nextjs";
-import { IconLogout, IconMenu2, IconX } from "@tabler/icons-react";
+
+import { IconMenu2, IconX } from "@tabler/icons-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { DynamicIcon } from "@/components/ui/DynamicIcon";
@@ -105,8 +105,6 @@ function DockIcon({
 }
 
 export function FloatingDockClient({ navItems }: FloatingDockClientProps) {
-  const { isSignedIn } = useUser();
-  const { signOut } = useClerk();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [desktopMoreMenuOpen, setDesktopMoreMenuOpen] = useState(false);
   const [mobileMoreMenuOpen, setMobileMoreMenuOpen] = useState(false);
@@ -126,28 +124,17 @@ export function FloatingDockClient({ navItems }: FloatingDockClientProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const links: DockLink[] = [
-    ...navItems.map((item, idx) => ({
-      title: item.title || "",
-      href: item.href || "#",
-      icon: (
-        <DynamicIcon
-          iconName={item.icon || "IconHome"}
-          className={`h-full w-full ${getIconColor(idx)}`}
-        />
-      ),
-      isExternal: item.isExternal,
-    })),
-    ...(isSignedIn
-      ? [
-          {
-            title: "Sign Out",
-            icon: <IconLogout className="h-full w-full text-red-500" />,
-            onClick: () => signOut(),
-          },
-        ]
-      : []),
-  ];
+  const links: DockLink[] = navItems.map((item, idx) => ({
+    title: item.title || "",
+    href: item.href || "#",
+    icon: (
+      <DynamicIcon
+        iconName={item.icon || "IconHome"}
+        className={`h-full w-full ${getIconColor(idx)}`}
+      />
+    ),
+    isExternal: item.isExternal,
+  }));
 
   const desktop = getVisibleLinks(links, MAX_VISIBLE_ITEMS_DESKTOP);
   const mobile = getVisibleLinks(links, MAX_VISIBLE_ITEMS_MOBILE);
