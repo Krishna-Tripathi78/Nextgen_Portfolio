@@ -1,6 +1,6 @@
 # NextGen Portfolio
 
-A modern, feature-rich portfolio website built with Next.js 15, Sanity CMS, Groq AI, and cutting-edge UI components.
+A modern, feature-rich portfolio website built with Next.js 15, Sanity CMS, Groq AI, and cutting-edge UI components with real-time analytics tracking.
 
 ## ✨ Features
 
@@ -16,12 +16,22 @@ A modern, feature-rich portfolio website built with Next.js 15, Sanity CMS, Groq
 ### 🚀 Core Functionality
 - **Dynamic Content Management** - Powered by Sanity CMS for easy content updates
 - **AI Twin Chatbot** - Interactive AI assistant powered by Groq AI for visitor engagement
+- **Analytics Dashboard** - Real-time portfolio engagement tracking with visit counter, section views, and geographic visitor map
 - **Contact Form** - Server-side form handling with Resend email integration
 - **Skills Visualization** - Interactive charts using Recharts with proficiency indicators
 - **Project Showcase** - Dynamic project cards with technology tags and links
 - **Certifications & Achievements** - Dedicated sections with verification links and featured items
 - **Experience Timeline** - Professional work history with responsibilities and achievements
 - **Education Section** - Academic background with honors and coursework details
+
+### 📊 Analytics Dashboard (NEW!)
+- **Portfolio Visit Counter** - Automatic tracking of total visits
+- **Section View Tracker** - Bar chart showing most popular sections
+- **Geographic Visitor Map** - Top visitor locations with city/country breakdown
+- **Real-time Stats Cards** - Total visits, unique visitors, countries, and section views
+- **Engagement Distribution** - Pie chart showing section engagement percentages
+- **Auto-refresh** - Dashboard updates every 30 seconds with live data
+- **Privacy-focused** - IP-based geolocation without storing personal data
 
 ### 🛠️ Technical Stack
 - **Framework**: Next.js 15.1.5 (App Router with Turbopack)
@@ -103,6 +113,7 @@ nextgen-portfolio/
 │   │   └── loading.tsx    # Loading state
 │   ├── api/               # API routes
 │   │   ├── ai-twin/       # Groq AI chatbot endpoint
+│   │   ├── analytics/     # Analytics tracking endpoint
 │   │   └── portfolio-data/# Portfolio data endpoint
 │   ├── actions/           # Server actions
 │   ├── dashboard/         # Admin dashboard
@@ -117,19 +128,27 @@ nextgen-portfolio/
 │   │   ├── EducationSection.tsx
 │   │   ├── CertificationsSection.tsx
 │   │   ├── AchievementsSection.tsx
+│   │   ├── AnalyticsDashboard.tsx  # NEW!
 │   │   ├── ContactSection.tsx
 │   │   └── RatingSection.tsx
 │   ├── Chat/              # AI Twin chatbot components
 │   │   ├── ChatWrapper.tsx
 │   │   └── MessageContent.tsx
 │   ├── ui/                # Reusable UI components
+│   ├── AnalyticsProvider.tsx  # NEW! Analytics tracking wrapper
+│   ├── SectionTracker.tsx     # NEW! Section view tracker
 │   └── ...                # Other components
 ├── sanity/                # Sanity CMS configuration
 │   ├── schemaTypes/       # Content schemas
+│   │   ├── analytics.ts   # NEW! Analytics schema
+│   │   └── ...            # Other schemas
 │   └── lib/               # Sanity utilities
 ├── Data/                  # Sample data (NDJSON format)
+│   ├── analytics.ndjson   # NEW! Analytics initial data
+│   └── ...                # Other data files
 ├── hooks/                 # Custom React hooks
 │   ├── use-mobile.ts
+│   ├── use-analytics.ts   # NEW! Analytics tracking hook
 │   └── use-portfolio-completion.ts
 ├── lib/                   # Utility functions
 │   ├── utils.ts
@@ -206,6 +225,18 @@ chmod +x import-all.sh
 ./import-all.sh
 ```
 
+**Note:** If you encounter token errors, you can manually create content in Sanity Studio at `/studio`.
+
+### Analytics Setup
+For detailed analytics setup instructions, see [ANALYTICS_SETUP.md](ANALYTICS_SETUP.md).
+
+**Quick Setup:**
+1. Start dev server: `npm run dev`
+2. Go to `http://localhost:3000/studio`
+3. Create an "Analytics" document with initial values (all zeros)
+4. Publish the document
+5. Analytics will start tracking automatically!
+
 ## 🎯 Features Breakdown
 
 ### Sections
@@ -217,7 +248,8 @@ chmod +x import-all.sh
 6. **Education** - Academic background with achievements and coursework
 7. **Certifications** - Professional certifications with skills and verification
 8. **Achievements** - Awards and recognitions (featured and regular)
-9. **Contact** - Contact form with email integration and social links
+9. **Analytics Dashboard** - Real-time engagement tracking with charts and visitor data
+10. **Contact** - Contact form with email integration and social links
 
 ### UI Components
 - Animated buttons and cards with hover effects
@@ -297,10 +329,37 @@ npm start
 - Check API rate limits
 - Review console logs for error messages
 
+### Analytics Not Tracking
+- Ensure Analytics document exists in Sanity Studio
+- Check browser console for API errors
+- Verify `/api/analytics` endpoint is accessible
+- ipapi.co has rate limits (1000 requests/day on free tier)
+
+### Sanity Import Token Errors
+- Run `sanity login` first
+- Alternatively, manually create content in Sanity Studio at `/studio`
+- Check that you're logged into the correct Sanity account
+
 ### Email Form Issues
 - Verify RESEND_API_KEY is valid
 - Check CONTACT_EMAIL is set
 - Review server logs for submission errors
+
+## 📚 Additional Documentation
+
+- [Analytics Setup Guide](ANALYTICS_SETUP.md) - Detailed analytics dashboard setup and customization
+- [Performance Optimizations](PERFORMANCE_OPTIMIZATIONS.md) - Build and runtime optimizations
+
+## 🎯 Recent Updates
+
+### v2.0.0 - Analytics Dashboard
+- ✨ Added real-time analytics tracking
+- 📊 Portfolio visit counter with automatic tracking
+- 🗺️ Geographic visitor map with city/country breakdown
+- 📈 Section engagement tracking with bar and pie charts
+- 🔄 Auto-refresh dashboard every 30 seconds
+- 🎨 Beautiful gradient stats cards with hover effects
+- 🔒 Privacy-focused implementation (no cookies, IP-based only)
 
 ## 📄 License
 
