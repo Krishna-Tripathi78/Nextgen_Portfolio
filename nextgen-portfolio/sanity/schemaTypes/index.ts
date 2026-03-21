@@ -1,5 +1,6 @@
 import type { SchemaTypeDefinition } from "sanity";
 import achievement from "./achievement";
+import analytics from "./analytics";
 import certification from "./certification";
 import contact from "./contact";
 import education from "./education";
@@ -19,6 +20,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     education,
     certification,
     achievement,
+    analytics,
     contact,
     siteSettings,
     navigation,
