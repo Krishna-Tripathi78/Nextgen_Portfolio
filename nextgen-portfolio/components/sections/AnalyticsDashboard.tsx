@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Eye, TrendingUp, Globe, Users } from "lucide-react";
+import { Eye, TrendingUp, Globe, Users, Map as MapIcon } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
+import { LiveVisitorMap } from "./LiveVisitorMap";
 
 interface AnalyticsData {
   totalVisits: number;
@@ -35,7 +36,7 @@ export function AnalyticsDashboard() {
 
   useEffect(() => {
     fetchAnalytics();
-    const interval = setInterval(fetchAnalytics, 30000); // Refresh every 30 seconds
+    const interval = setInterval(fetchAnalytics, 15000); // Refresh every 15 seconds for live feel
     return () => clearInterval(interval);
   }, []);
 
@@ -70,6 +71,7 @@ export function AnalyticsDashboard() {
     views: value,
   }));
 
+  const filteredSectionData = sectionData.filter((d) => d.views > 0);
   const topLocations = (analytics.visitorLocations || [])
     .sort((a, b) => b.count - a.count)
     .slice(0, 10);
@@ -135,6 +137,11 @@ export function AnalyticsDashboard() {
           </div>
         </div>
 
+        {/* Global Visitor Map Section */}
+        <div className="mb-12">
+           <LiveVisitorMap locations={analytics.visitorLocations || []} />
+        </div>
+
         {/* Charts Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Section Views Bar Chart */}
@@ -188,19 +195,21 @@ export function AnalyticsDashboard() {
         {/* Section Distribution Pie Chart */}
         <div className="mt-8 bg-card border border-border rounded-xl p-6">
           <h3 className="text-xl font-semibold mb-6">Section Engagement Distribution</h3>
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={400}>
             <PieChart>
               <Pie
-                data={sectionData}
+                data={filteredSectionData}
                 cx="50%"
                 cy="50%"
-                labelLine={false}
-                label={({ name, percent }) => `${name}: ${((percent || 0) * 100).toFixed(0)}%`}
-                outerRadius={100}
+                labelLine={true}
+                label={({ name, percent = 0 }) => percent > 0.05 ? `${name}: ${(percent * 100).toFixed(0)}%` : ""}
+                outerRadius={120}
+                minAngle={15}
+                paddingAngle={2}
                 fill="#8884d8"
                 dataKey="views"
               >
-                {sectionData.map((entry, index) => (
+                {filteredSectionData.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>
