@@ -1,17 +1,10 @@
 export async function POST(req: Request) {
   try {
-    const { message } = await req.json();
+    const { messages } = await req.json();
 
-    // Validate message input
-    if (!message || typeof message !== "string") {
-      return Response.json({ error: "Message is required" }, { status: 400 });
-    }
-
-    if (message.length > 500) {
-      return Response.json(
-        { error: "Message too long (max 500 characters)" },
-        { status: 400 },
-      );
+    // Validate messages input
+    if (!messages || !Array.isArray(messages)) {
+      return Response.json({ error: "Messages array is required" }, { status: 400 });
     }
 
     // Validate API key
@@ -36,7 +29,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // Fetch live portfolio data
+    // Fetch live portfolio data for the system prompt
     const portfolioRes = await fetch(`${siteUrl}/api/portfolio-data`);
 
     if (!portfolioRes.ok) {
@@ -61,10 +54,11 @@ export async function POST(req: Request) {
           model: "llama-3.1-8b-instant",
           messages: [
             { role: "system", content: knowledge },
-            { role: "user", content: message },
+            ...messages.slice(-10), // Keep last 10 messages for context
           ],
-          max_tokens: 150,
+          max_tokens: 512, // Increased for longer context
           temperature: 0.7,
+          stream: true, // Enable streaming
         }),
       },
     );
@@ -78,12 +72,56 @@ export async function POST(req: Request) {
       );
     }
 
-    const data = await response.json();
-    const reply =
-      data.choices?.[0]?.message?.content ||
-      "Sorry, I couldn't generate a response.";
+    // Create a ReadableStream to pipe the Groq response to the client
+    const stream = new ReadableStream({
+      async start(controller) {
+        if (!response.body) {
+          controller.close();
+          return;
+        }
 
-    return Response.json({ reply });
+        const reader = response.body.getReader();
+        const encoder = new TextEncoder();
+        const decoder = new TextDecoder();
+
+        try {
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            const chunk = decoder.decode(value);
+            const lines = chunk.split("\n");
+
+            for (const line of lines) {
+              if (line.trim() === "" || line.includes("[DONE]")) continue;
+              if (line.startsWith("data: ")) {
+                try {
+                  const data = JSON.parse(line.slice(6));
+                  const content = data.choices?.[0]?.delta?.content || "";
+                  if (content) {
+                    controller.enqueue(encoder.encode(content));
+                  }
+                } catch (e) {
+                  // Silent catch for incomplete JSON chunks
+                }
+              }
+            }
+          }
+        } catch (error) {
+          controller.error(error);
+        } finally {
+          controller.close();
+        }
+      },
+    });
+
+    return new Response(stream, {
+        headers: {
+            "Content-Type": "text/event-stream",
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive"
+        }
+    });
   } catch (error) {
     console.error(
       "AI Twin error:",

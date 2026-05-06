@@ -34,40 +34,59 @@ export default function ChatWrapper() {
 
         const userMessage = input.trim();
         setInput("");
-        setMessages((prev) => [...prev, { role: "user", content: userMessage }]);
+        
+        // Add user message to state
+        const updatedMessages: Message[] = [
+            ...messages,
+            { role: "user", content: userMessage }
+        ];
+        setMessages(updatedMessages);
         setIsLoading(true);
+
+        // Add a placeholder for the assistant response
+        setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
 
         try {
             const response = await fetch("/api/ai-twin", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ message: userMessage }),
+                body: JSON.stringify({ messages: updatedMessages }),
             });
 
-            const data = await response.json();
+            if (!response.ok || !response.body) {
+                throw new Error("Failed to get response");
+            }
 
-            if (response.ok) {
-                setMessages((prev) => [
-                    ...prev,
-                    { role: "assistant", content: data.reply },
-                ]);
-            } else {
-                setMessages((prev) => [
-                    ...prev,
-                    {
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+            let assistantReply = "";
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+
+                const chunk = decoder.decode(value);
+                assistantReply += chunk;
+
+                // Update the last message in the list (the assistant's placeholder)
+                setMessages((prev) => {
+                    const newMessages = [...prev];
+                    newMessages[newMessages.length - 1] = {
                         role: "assistant",
-                        content: "Sorry, I encountered an error. Please try again.",
-                    },
-                ]);
+                        content: assistantReply,
+                    };
+                    return newMessages;
+                });
             }
         } catch (error) {
-            setMessages((prev) => [
-                ...prev,
-                {
+            setMessages((prev) => {
+                const newMessages = [...prev];
+                newMessages[newMessages.length - 1] = {
                     role: "assistant",
-                    content: "Sorry, I couldn't connect. Please try again.",
-                },
-            ]);
+                    content: "Sorry, I encountered an error. Please try again.",
+                };
+                return newMessages;
+            });
         } finally {
             setIsLoading(false);
         }

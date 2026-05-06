@@ -350,6 +350,10 @@ npm start
 - [Analytics Setup Guide](ANALYTICS_SETUP.md) - Detailed analytics dashboard setup and customization
 - [Performance Optimizations](PERFORMANCE_OPTIMIZATIONS.md) - Build and runtime optimizations
 
+## 🏆 Latest Achievement
+
+**Winner of AWS Builders 10,000 AIdeas Competition (2026)** — Built innovative solutions leveraging cloud & AI
+
 ## 🎯 Recent Updates
 
 ### v2.0.0 - Analytics Dashboard
